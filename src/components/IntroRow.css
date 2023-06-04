@@ -1,0 +1,36 @@
+.horizontal {
+    flex-direction: row;
+    display: flex;
+    gap: 20px;
+}
+
+.vertical {
+flex-direction:column;
+    display: flex;
+    gap: 20px;
+}
+
+.name {
+    font-size: 60px;
+}
+
+.me-pic {
+  max-height:500px;
+  max-width:500px;
+}
+
+.me-pic-cropper {
+    height: 100%;
+    transform: translateY(-10%);
+    position:relative;
+    clip-path: circle(40%);
+}
+
+.linkedin {
+    max-height:20px;
+    fill: #0077B5 !important;
+    color: #0077B5;
+    
+}
+
+

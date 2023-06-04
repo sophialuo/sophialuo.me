@@ -1,0 +1,22 @@
+.header-title {
+    top: -10;
+    font-size: 40px;
+}
+
+.items {
+    flex-direction: row;
+    display: flex;
+    gap:20px;
+    overflow-x: scroll;
+}
+
+.coming-soon-block {
+    margin: 10px;
+    height:150px;
+    min-width:250px;
+    background-color:lightgrey;
+    border-radius: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
