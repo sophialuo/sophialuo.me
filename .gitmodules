@@ -1,0 +1,4 @@
+[submodule "build"]
+	path = build
+	url = https://github.com/sophialuo/sophialuo.me.git
+	branch = release
