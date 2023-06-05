@@ -3,19 +3,23 @@ import _ from "lodash";
 import "./Main.css";
 import { Loc, Player, GameStatus } from "./types";
 import { checkGameStatus } from "./helpers";
+import { N } from "./constants";
 import Tile from "./Tile";
 
 interface MiniGameProps {
-  N: number;
-  anyMiniGameAllowed: boolean;
+  miniGameLoc: Loc;
   focused: boolean;
+  anyMiniGameAllowed: boolean;
   curPlayer: Player;
   status: GameStatus;
-  handleNext: (loc: Loc, status: GameStatus) => void;
+  handleNext: (
+    { loc, status }: { loc: Loc; status: GameStatus },
+    newLoc: Loc
+  ) => void;
 }
 
 const MiniGame: React.FC<MiniGameProps> = ({
-  N,
+  miniGameLoc,
   focused,
   anyMiniGameAllowed,
   curPlayer,
@@ -29,8 +33,8 @@ const MiniGame: React.FC<MiniGameProps> = ({
   );
 
   const handleTileClick = useCallback(
-    (loc: Loc) => {
-      const { row, col } = loc;
+    (nextLoc: Loc) => {
+      const { row, col } = nextLoc;
       const isClickable =
         status === GameStatus.InProgress &&
         (anyMiniGameAllowed || (focused && _.isNil(miniGameState[row][col])));
@@ -46,12 +50,12 @@ const MiniGame: React.FC<MiniGameProps> = ({
         // update minigame status
         const newStatus = checkGameStatus(
           newMoveCount,
-          loc,
+          nextLoc,
           newMiniGameState,
           curPlayer
         );
         // next turn
-        handleNext(loc, newStatus);
+        handleNext({ loc: miniGameLoc, status: newStatus }, nextLoc);
       }
     },
     [
@@ -68,23 +72,27 @@ const MiniGame: React.FC<MiniGameProps> = ({
 
   return (
     <div className={`board ${focused ? "board-focused" : ""}`}>
-      {_.range(N).map((row: number) => {
-        return (
-          <div className="board-row">
-            {_.range(N).map((col: number) => {
-              return (
-                <Tile
-                  key={`tic-tac-toe_${row}_${col}`}
-                  row={row}
-                  col={col}
-                  handleTileClick={handleTileClick}
-                  tilePlayer={miniGameState[row][col]}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
+      {status === GameStatus.Tied && <div>Tied</div>}
+      {status === GameStatus.XWon && <div>X won</div>}
+      {status === GameStatus.OWon && <div>O won</div>}
+      {status === GameStatus.InProgress &&
+        _.range(N).map((row: number) => {
+          return (
+            <div className="board-row">
+              {_.range(N).map((col: number) => {
+                return (
+                  <Tile
+                    key={`tic-tac-toe_${row}_${col}`}
+                    row={row}
+                    col={col}
+                    handleTileClick={handleTileClick}
+                    tilePlayer={miniGameState[row][col]}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
     </div>
   );
 };

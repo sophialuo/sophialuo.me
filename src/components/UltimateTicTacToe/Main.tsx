@@ -22,7 +22,7 @@ const Main: React.FC = () => {
   );
 
   const handleNext = useCallback(
-    (loc: Loc, status: GameStatus) => {
+    ({ loc, status }: { loc: Loc; status: GameStatus }, newLoc: Loc) => {
       // change player
       if (curPlayer === Player.O) {
         setCurPlayer(Player.X);
@@ -56,8 +56,8 @@ const Main: React.FC = () => {
       }
 
       // focused minigame (or not)
-      if (newMainGameState[row][col] === GameStatus.InProgress) {
-        setFocusedLoc(loc);
+      if (newMainGameState[newLoc.row][newLoc.col] === GameStatus.InProgress) {
+        setFocusedLoc(newLoc);
       } else {
         setFocusedLoc(undefined);
       }
@@ -90,7 +90,7 @@ const Main: React.FC = () => {
                     <div>
                       <MiniGame
                         key={`ultimate-tic-tac-toe_${row}_${col}`}
-                        N={N}
+                        miniGameLoc={{ row, col }}
                         anyMiniGameAllowed={_.isNil(focusedLoc)}
                         focused={
                           row === focusedLoc?.row && col === focusedLoc?.col
