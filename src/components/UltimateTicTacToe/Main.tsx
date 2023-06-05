@@ -1,11 +1,11 @@
 import React from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-import "./UltimateTicTacToe.css";
+import "./Main.css";
 
 const N = 3;
 
-const UltimateTicTacToe: React.FC = () => {
+const Main: React.FC = () => {
   return (
     <div className="container">
       <div className="header">
@@ -38,4 +38,4 @@ const UltimateTicTacToe: React.FC = () => {
   );
 };
 
-export default UltimateTicTacToe;
+export default Main;
