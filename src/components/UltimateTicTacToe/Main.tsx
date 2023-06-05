@@ -71,7 +71,6 @@ const Main: React.FC = () => {
       setMainGameState,
       moveCount,
       setMoveCount,
-      mainGameStatus,
       setMainGameStatus,
       curPlayer,
       setCurPlayer,

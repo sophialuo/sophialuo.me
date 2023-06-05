@@ -70,6 +70,8 @@ const MiniGame: React.FC<MiniGameProps> = ({
       mainGameStatus,
       miniGameStatus,
       anyMiniGameAllowed,
+      curPlayer,
+      miniGameLoc,
       focused,
       miniGameState,
       setMiniGameState,

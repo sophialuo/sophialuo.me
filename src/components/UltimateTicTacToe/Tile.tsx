@@ -1,5 +1,4 @@
 import React from "react";
-import _ from "lodash";
 import "./Main.css";
 import { Loc, Player } from "./types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
