@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import _ from "lodash";
 import "./Main.css";
 import { Loc, Player } from "./types";
@@ -10,34 +10,22 @@ import { N } from "./constants";
 interface TileProps {
   row: number;
   col: number;
-  curPlayer: Player;
-  isFirstTurn: boolean;
-  miniGameIsFocused: boolean;
-  handleNext: (loc: Loc) => void;
+  handleTileClick: (loc: Loc) => void;
+  tilePlayer?: Player;
 }
 
 const Tile: React.FC<TileProps> = ({
   row,
   col,
-  curPlayer,
-  isFirstTurn,
-  miniGameIsFocused,
-  handleNext,
+  handleTileClick,
+  tilePlayer,
 }) => {
-  const [tilePlayer, setTilePlayer] = useState<Player | undefined>(undefined);
-  const isClickable = isFirstTurn || (miniGameIsFocused && _.isNil(tilePlayer));
-
   return (
     <div
       className={`tile tile_${row === N - 1 ? row : "r"}_${
         row === N - 1 && col !== N - 1 ? "c" : col
       }`}
-      onClick={() => {
-        if (isClickable) {
-          setTilePlayer(curPlayer);
-          handleNext({ row, col });
-        }
-      }}
+      onClick={() => handleTileClick({ row, col })}
     >
       {tilePlayer === Player.X && <FontAwesomeIcon icon={faXmark} />}
       {tilePlayer === Player.O && <FontAwesomeIcon icon={faCircle} />}

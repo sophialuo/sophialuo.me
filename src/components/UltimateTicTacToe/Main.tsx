@@ -3,25 +3,75 @@ import _ from "lodash";
 import { Link } from "react-router-dom";
 import MiniGame from "./MiniGame";
 import "./Main.css";
-import { Loc, Player } from "./types";
+import { Loc, GameStatus, Player } from "./types";
 import { N } from "./constants";
+import { checkGameStatus } from "./helpers";
 
 const Main: React.FC = () => {
-  const [isFirstTurn, setIsFirstTurn] = useState<boolean>(true);
   const [focusedLoc, setFocusedLoc] = useState<Loc | undefined>(undefined);
   const [curPlayer, setCurPlayer] = useState<Player>(Player.X);
 
+  const [moveCount, setMoveCount] = useState<number>(0);
+  const [mainGameState, setMainGameState] = useState<GameStatus[][]>(
+    _.range(N).map((_index) =>
+      _.range(N).map((_index) => GameStatus.InProgress)
+    )
+  );
+  const [mainGameStatus, setMainGameStatus] = useState<GameStatus>(
+    GameStatus.InProgress
+  );
+
   const handleNext = useCallback(
-    ({ row, col }: Loc) => {
+    (loc: Loc, status: GameStatus) => {
+      // change player
       if (curPlayer === Player.O) {
         setCurPlayer(Player.X);
       } else {
         setCurPlayer(Player.O);
       }
-      setFocusedLoc({ row, col });
-      setIsFirstTurn(false);
+
+      const { row, col } = loc;
+      let newMainGameState = mainGameState;
+
+      if (status !== GameStatus.InProgress) {
+        // update maingamestate
+        newMainGameState = _.cloneDeep(mainGameState);
+        newMainGameState[row][col] = status;
+        setMainGameState(newMainGameState);
+        // update movecount
+        const newMoveCount = moveCount + 1;
+        setMoveCount(newMoveCount);
+        // update maingame status
+        const newStatus = checkGameStatus(
+          newMoveCount,
+          loc,
+          newMainGameState,
+          curPlayer
+        );
+        setMainGameStatus(newStatus);
+
+        if (newStatus !== GameStatus.InProgress) {
+          return;
+        }
+      }
+
+      // focused minigame (or not)
+      if (newMainGameState[row][col] === GameStatus.InProgress) {
+        setFocusedLoc(loc);
+      } else {
+        setFocusedLoc(undefined);
+      }
     },
-    [curPlayer, setCurPlayer]
+    [
+      mainGameState,
+      setMainGameState,
+      moveCount,
+      setMoveCount,
+      mainGameStatus,
+      setMainGameStatus,
+      curPlayer,
+      setCurPlayer,
+    ]
   );
 
   return (
@@ -41,10 +91,11 @@ const Main: React.FC = () => {
                       <MiniGame
                         key={`ultimate-tic-tac-toe_${row}_${col}`}
                         N={N}
-                        isFirstTurn={isFirstTurn}
+                        anyMiniGameAllowed={_.isNil(focusedLoc)}
                         focused={
                           row === focusedLoc?.row && col === focusedLoc?.col
                         }
+                        status={mainGameState[row][col]}
                         curPlayer={curPlayer}
                         handleNext={handleNext}
                       />
