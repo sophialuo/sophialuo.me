@@ -5,15 +5,19 @@ import { Loc, Player, GameStatus } from "./types";
 import { checkGameStatus } from "./helpers";
 import { N } from "./constants";
 import Tile from "./Tile";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
 
 interface MiniGameProps {
   miniGameLoc: Loc;
   focused: boolean;
   anyMiniGameAllowed: boolean;
   curPlayer: Player;
-  status: GameStatus;
+  mainGameStatus: GameStatus;
+  miniGameStatus: GameStatus;
   handleNext: (
-    { loc, status }: { loc: Loc; status: GameStatus },
+    { loc, miniGameStatus }: { loc: Loc; miniGameStatus: GameStatus },
     newLoc: Loc
   ) => void;
 }
@@ -23,20 +27,24 @@ const MiniGame: React.FC<MiniGameProps> = ({
   focused,
   anyMiniGameAllowed,
   curPlayer,
-  status,
+  mainGameStatus,
+  miniGameStatus,
   handleNext,
 }) => {
   const [moveCount, setMoveCount] = useState<number>(0);
-
   const [miniGameState, setMiniGameState] = useState<(Player | undefined)[][]>(
     _.range(N).map((_index) => _.range(N).map((_index) => undefined))
   );
+
+  const [showMiniGameStateOnHover, setShowMiniGameStateOnHover] =
+    useState<boolean>(true);
 
   const handleTileClick = useCallback(
     (nextLoc: Loc) => {
       const { row, col } = nextLoc;
       const isClickable =
-        status === GameStatus.InProgress &&
+        mainGameStatus === GameStatus.InProgress &&
+        miniGameStatus === GameStatus.InProgress &&
         (anyMiniGameAllowed || (focused && _.isNil(miniGameState[row][col])));
 
       if (isClickable) {
@@ -55,11 +63,12 @@ const MiniGame: React.FC<MiniGameProps> = ({
           curPlayer
         );
         // next turn
-        handleNext({ loc: miniGameLoc, status: newStatus }, nextLoc);
+        handleNext({ loc: miniGameLoc, miniGameStatus: newStatus }, nextLoc);
       }
     },
     [
-      status,
+      mainGameStatus,
+      miniGameStatus,
       anyMiniGameAllowed,
       focused,
       miniGameState,
@@ -72,27 +81,46 @@ const MiniGame: React.FC<MiniGameProps> = ({
 
   return (
     <div className={`board ${focused ? "board-focused" : ""}`}>
-      {status === GameStatus.Tied && <div>Tied</div>}
-      {status === GameStatus.XWon && <div>X won</div>}
-      {status === GameStatus.OWon && <div>O won</div>}
-      {status === GameStatus.InProgress &&
-        _.range(N).map((row: number) => {
-          return (
-            <div className="board-row">
-              {_.range(N).map((col: number) => {
-                return (
-                  <Tile
-                    key={`tic-tac-toe_${row}_${col}`}
-                    row={row}
-                    col={col}
-                    handleTileClick={handleTileClick}
-                    tilePlayer={miniGameState[row][col]}
-                  />
-                );
-              })}
-            </div>
-          );
-        })}
+      {miniGameStatus !== GameStatus.InProgress &&
+        !showMiniGameStateOnHover && (
+          <div
+            className="mini-game-tile"
+            onMouseEnter={() => setShowMiniGameStateOnHover(true)}
+            onMouseLeave={() => setShowMiniGameStateOnHover(false)}
+          >
+            <FontAwesomeIcon
+              icon={
+                miniGameStatus === GameStatus.Tied
+                  ? faPencil
+                  : miniGameStatus === GameStatus.XWon
+                  ? faXmark
+                  : faCircle
+              }
+            />
+          </div>
+        )}
+      {(miniGameStatus === GameStatus.InProgress ||
+        showMiniGameStateOnHover) && (
+        <div onMouseLeave={() => setShowMiniGameStateOnHover(false)}>
+          {_.range(N).map((row: number) => {
+            return (
+              <div className="board-row">
+                {_.range(N).map((col: number) => {
+                  return (
+                    <Tile
+                      key={`tic-tac-toe_${row}_${col}`}
+                      row={row}
+                      col={col}
+                      handleTileClick={handleTileClick}
+                      tilePlayer={miniGameState[row][col]}
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

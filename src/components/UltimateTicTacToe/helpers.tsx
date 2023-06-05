@@ -10,7 +10,7 @@ const locIsValid = (loc: Loc) => {
 const checkGameWinHelper = (
   loc: Loc,
   gameState: (Player | undefined)[][] | GameStatus[][],
-  player: Player | GameStatus,
+  playerOrStatus: Player | GameStatus,
   diffs: Loc[]
 ) => {
   const { row, col } = loc;
@@ -18,7 +18,10 @@ const checkGameWinHelper = (
   for (const diff of diffs) {
     const { row: rowDiff, col: colDiff } = diff;
     const newLoc = { row: row + rowDiff, col: col + colDiff };
-    if (locIsValid(newLoc) && gameState[newLoc.row][newLoc.col] === player) {
+    if (
+      locIsValid(newLoc) &&
+      gameState[newLoc.row][newLoc.col] === playerOrStatus
+    ) {
       count = count + 1;
     }
     if (count >= N) {
@@ -47,15 +50,20 @@ export const checkGameStatus = (
   moveCount: number,
   loc: Loc,
   gameState: (Player | undefined)[][] | GameStatus[][],
-  player: Player | GameStatus
+  playerOrStatus: Player | GameStatus
 ) => {
   if (
-    checkGameWinHelper(loc, gameState, player, horizontalDiff) ||
-    checkGameWinHelper(loc, gameState, player, verticalDiff) ||
-    checkGameWinHelper(loc, gameState, player, majorDiagDiff) ||
-    checkGameWinHelper(loc, gameState, player, minorDiagDiff)
+    checkGameWinHelper(loc, gameState, playerOrStatus, horizontalDiff) ||
+    checkGameWinHelper(loc, gameState, playerOrStatus, verticalDiff) ||
+    checkGameWinHelper(loc, gameState, playerOrStatus, majorDiagDiff) ||
+    checkGameWinHelper(loc, gameState, playerOrStatus, minorDiagDiff)
   ) {
-    return player === Player.O ? GameStatus.OWon : GameStatus.XWon;
+    if (playerOrStatus === Player.O || playerOrStatus === GameStatus.OWon) {
+      return GameStatus.OWon;
+    }
+    if (playerOrStatus === Player.X || playerOrStatus === GameStatus.XWon) {
+      return GameStatus.XWon;
+    }
   }
 
   if (moveCount === N * N) {

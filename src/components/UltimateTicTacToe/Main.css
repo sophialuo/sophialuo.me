@@ -17,6 +17,10 @@
     height:100%;
 }
 
+.game-over {
+    color: #853862;
+}
+
 .ultimate-board {
     flex-direction: column;
     display: flex;
@@ -28,6 +32,8 @@
     display: flex;
     gap: 20px;
 }
+
+
 
 .board {
     flex-direction: column;
@@ -43,6 +49,16 @@
 .board-row {
     flex-direction: row;
     display:flex;
+}
+
+.mini-game-tile {
+    height: 213px; 
+    width: 213px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #853862;
+    font-size: 80px;
 }
 
 .tile {

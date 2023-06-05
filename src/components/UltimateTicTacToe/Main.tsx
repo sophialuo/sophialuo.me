@@ -22,7 +22,10 @@ const Main: React.FC = () => {
   );
 
   const handleNext = useCallback(
-    ({ loc, status }: { loc: Loc; status: GameStatus }, newLoc: Loc) => {
+    (
+      { loc, miniGameStatus }: { loc: Loc; miniGameStatus: GameStatus },
+      newLoc: Loc
+    ) => {
       // change player
       if (curPlayer === Player.O) {
         setCurPlayer(Player.X);
@@ -33,10 +36,10 @@ const Main: React.FC = () => {
       const { row, col } = loc;
       let newMainGameState = mainGameState;
 
-      if (status !== GameStatus.InProgress) {
+      if (miniGameStatus !== GameStatus.InProgress) {
         // update maingamestate
         newMainGameState = _.cloneDeep(mainGameState);
-        newMainGameState[row][col] = status;
+        newMainGameState[row][col] = miniGameStatus;
         setMainGameState(newMainGameState);
         // update movecount
         const newMoveCount = moveCount + 1;
@@ -46,11 +49,12 @@ const Main: React.FC = () => {
           newMoveCount,
           loc,
           newMainGameState,
-          curPlayer
+          miniGameStatus
         );
         setMainGameStatus(newStatus);
 
         if (newStatus !== GameStatus.InProgress) {
+          setFocusedLoc(undefined);
           return;
         }
       }
@@ -81,6 +85,9 @@ const Main: React.FC = () => {
       </div>
       <div className="game-wrapper">
         <h1>Ultimate Tic Tac Toe</h1>
+        {mainGameStatus !== GameStatus.InProgress && (
+          <h2 className="game-over">{`Game Over: ${mainGameStatus}`}</h2>
+        )}
         <div className="ultimate-board">
           {_.range(N).map((row: number) => {
             return (
@@ -95,7 +102,8 @@ const Main: React.FC = () => {
                         focused={
                           row === focusedLoc?.row && col === focusedLoc?.col
                         }
-                        status={mainGameState[row][col]}
+                        mainGameStatus={mainGameStatus}
+                        miniGameStatus={mainGameState[row][col]}
                         curPlayer={curPlayer}
                         handleNext={handleNext}
                       />
