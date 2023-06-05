@@ -2,8 +2,6 @@ import React from "react";
 import _ from "lodash";
 import "./BodyRow.css";
 
-// TODO make this generalizable so that can feed in list of items and header title
-const HEADER_TITLE = "TINKERING";
 const NUM_ITEMS = 10;
 
 interface BodyRowProps {
@@ -17,7 +15,7 @@ const BodyRow: React.FC<BodyRowProps> = ({ rowTitle }) => {
       <div className="items">
         {_.range(NUM_ITEMS).map((index: number) => {
           return (
-            <div key={`${HEADER_TITLE}_${index}`} className="coming-soon-block">
+            <div key={`${rowTitle}_${index}`} className="coming-soon-block">
               Coming soon!
             </div>
           );
