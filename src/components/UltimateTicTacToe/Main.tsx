@@ -11,14 +11,18 @@ const Main: React.FC = () => {
   const [focusedLoc, setFocusedLoc] = useState<Loc | undefined>(undefined);
   const [curPlayer, setCurPlayer] = useState<Player>(Player.X);
 
-  const handleNext = useCallback(() => {
-    if (curPlayer === Player.O) {
-      setCurPlayer(Player.X);
-    } else {
-      setCurPlayer(Player.O);
-    }
-    setIsFirstTurn(false);
-  }, [curPlayer, setCurPlayer]);
+  const handleNext = useCallback(
+    ({ row, col }: Loc) => {
+      if (curPlayer === Player.O) {
+        setCurPlayer(Player.X);
+      } else {
+        setCurPlayer(Player.O);
+      }
+      setFocusedLoc({ row, col });
+      setIsFirstTurn(false);
+    },
+    [curPlayer, setCurPlayer]
+  );
 
   return (
     <div className="container">
@@ -33,7 +37,7 @@ const Main: React.FC = () => {
               <div className="ultimate-board-row">
                 {_.range(N).map((col: number) => {
                   return (
-                    <div onClick={() => setFocusedLoc({ row, col })}>
+                    <div>
                       <MiniGame
                         key={`ultimate-tic-tac-toe_${row}_${col}`}
                         N={N}

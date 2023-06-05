@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import "./Main.css";
-import { Player } from "./types";
+import { Loc, Player } from "./types";
 import { N } from "./constants";
 import Tile from "./Tile";
 
@@ -10,7 +10,7 @@ interface MiniGameProps {
   isFirstTurn: boolean;
   focused: boolean;
   curPlayer: Player;
-  handleNext: () => void;
+  handleNext: (loc: Loc) => void;
 }
 
 const MiniGame: React.FC<MiniGameProps> = ({

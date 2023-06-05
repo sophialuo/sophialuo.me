@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import _ from "lodash";
 import "./Main.css";
-import { Player } from "./types";
+import { Loc, Player } from "./types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
@@ -13,7 +13,7 @@ interface TileProps {
   curPlayer: Player;
   isFirstTurn: boolean;
   miniGameIsFocused: boolean;
-  handleNext: () => void;
+  handleNext: (loc: Loc) => void;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -35,7 +35,7 @@ const Tile: React.FC<TileProps> = ({
       onClick={() => {
         if (isClickable) {
           setTilePlayer(curPlayer);
-          handleNext();
+          handleNext({ row, col });
         }
       }}
     >
