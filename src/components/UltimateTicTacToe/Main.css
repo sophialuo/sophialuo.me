@@ -17,9 +17,27 @@
     height:100%;
 }
 
+.ultimate-board {
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+}
+
+.ultimate-board-row {
+    flex-direction: row;
+    display: flex;
+    gap: 20px;
+}
+
 .board {
     flex-direction: column;
     display: flex;
+}
+
+.board-focused {
+    border-radius: 10%;
+    background: radial-gradient(#e087b86f, transparent);
+    box-shadow: 0 0 15px 15px #e087b819;
 }
 
 .board-row {
@@ -28,27 +46,32 @@
 }
 
 .tile {
-    height: 200px;
-    width: 200px;
+    height: 70px;
+    width: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #853862;
 }
 
 .tile_r_0 {
     border-right: solid; 
     border-bottom: solid; 
+    border-color:gray;
 }
 
 .tile_r_1 {
     border-right: solid;
     border-bottom: solid;
+    border-color: gray;
 }
 
 .tile_r_2 {
     border-bottom: solid;
+    border-color: gray;
 }
 
 .tile_2_c {
     border-right: solid;
+    border-color: gray;
 }

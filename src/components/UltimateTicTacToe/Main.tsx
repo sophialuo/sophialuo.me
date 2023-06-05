@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import MiniGame from "./MiniGame";
 import "./Main.css";
-
-const N = 3;
+import { Loc, Player } from "./types";
+import { N } from "./constants";
 
 const Main: React.FC = () => {
+  const [focusedLoc, setFocusedLoc] = useState<Loc | undefined>(undefined);
+  const [curPlayer, setCurPlayer] = useState<Player>(Player.X);
+
+  const handleNext = useCallback(() => {
+    if (curPlayer === Player.O) {
+      setCurPlayer(Player.X);
+    } else {
+      setCurPlayer(Player.O);
+    }
+  }, [curPlayer, setCurPlayer]);
+
   return (
     <div className="container">
       <div className="header">
@@ -13,19 +25,22 @@ const Main: React.FC = () => {
       </div>
       <div className="game-wrapper">
         <h1>Ultimate Tic Tac Toe</h1>
-        <div className="board">
+        <div className="ultimate-board">
           {_.range(N).map((row: number) => {
             return (
-              <div className="board-row">
+              <div className="ultimate-board-row">
                 {_.range(N).map((col: number) => {
                   return (
-                    <div
-                      key={`ultimate-tic-tac-toe_${row}_${col}`}
-                      className={`tile tile_${row === N - 1 ? row : "r"}_${
-                        row === N - 1 && col !== N - 1 ? "c" : col
-                      }`}
-                    >
-                      Coming soon!
+                    <div onClick={() => setFocusedLoc({ row, col })}>
+                      <MiniGame
+                        key={`ultimate-tic-tac-toe_${row}_${col}`}
+                        N={N}
+                        focused={
+                          row === focusedLoc?.row && col === focusedLoc?.col
+                        }
+                        curPlayer={curPlayer}
+                        handleNext={handleNext}
+                      />
                     </div>
                   );
                 })}
