@@ -1,4 +1,2 @@
-export { default as MePic } from "./IntroRow";
-
-export { default as IntroRow } from "./IntroRow";
-export { default as BodyRow } from "./BodyRow";
+export { default as Home } from "./Home";
+export { default as UltimateTicTacToe } from "./UltimateTicTacToe";
