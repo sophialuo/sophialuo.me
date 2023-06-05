@@ -7,6 +7,7 @@ import Tile from "./Tile";
 
 interface MiniGameProps {
   N: number;
+  isFirstTurn: boolean;
   focused: boolean;
   curPlayer: Player;
   handleNext: () => void;
@@ -15,6 +16,7 @@ interface MiniGameProps {
 const MiniGame: React.FC<MiniGameProps> = ({
   N,
   focused,
+  isFirstTurn,
   curPlayer,
   handleNext,
 }) => {
@@ -30,6 +32,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
                   row={row}
                   col={col}
                   curPlayer={curPlayer}
+                  isFirstTurn={isFirstTurn}
                   miniGameIsFocused={focused}
                   handleNext={handleNext}
                 />

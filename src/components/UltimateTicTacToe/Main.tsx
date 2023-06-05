@@ -7,6 +7,7 @@ import { Loc, Player } from "./types";
 import { N } from "./constants";
 
 const Main: React.FC = () => {
+  const [isFirstTurn, setIsFirstTurn] = useState<boolean>(true);
   const [focusedLoc, setFocusedLoc] = useState<Loc | undefined>(undefined);
   const [curPlayer, setCurPlayer] = useState<Player>(Player.X);
 
@@ -16,6 +17,7 @@ const Main: React.FC = () => {
     } else {
       setCurPlayer(Player.O);
     }
+    setIsFirstTurn(false);
   }, [curPlayer, setCurPlayer]);
 
   return (
@@ -35,6 +37,7 @@ const Main: React.FC = () => {
                       <MiniGame
                         key={`ultimate-tic-tac-toe_${row}_${col}`}
                         N={N}
+                        isFirstTurn={isFirstTurn}
                         focused={
                           row === focusedLoc?.row && col === focusedLoc?.col
                         }

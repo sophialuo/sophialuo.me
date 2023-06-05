@@ -11,6 +11,7 @@ interface TileProps {
   row: number;
   col: number;
   curPlayer: Player;
+  isFirstTurn: boolean;
   miniGameIsFocused: boolean;
   handleNext: () => void;
 }
@@ -19,11 +20,12 @@ const Tile: React.FC<TileProps> = ({
   row,
   col,
   curPlayer,
+  isFirstTurn,
   miniGameIsFocused,
   handleNext,
 }) => {
   const [tilePlayer, setTilePlayer] = useState<Player | undefined>(undefined);
-  const isClickable = miniGameIsFocused && _.isNil(tilePlayer);
+  const isClickable = isFirstTurn || (miniGameIsFocused && _.isNil(tilePlayer));
 
   return (
     <div
