@@ -5,7 +5,7 @@ import "./App.css";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className="App">
         <div className="container">
           <Routes>
