@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, UltimateTicTacToe } from "./components";
+import Home from "./pages";
+import UltimateTicTacToe from "./pages/ultimate-tic-tac-toe";
 import "./App.css";
 
 const App: React.FC = () => {

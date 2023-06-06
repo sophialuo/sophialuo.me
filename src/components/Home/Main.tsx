@@ -1,9 +1,9 @@
 import React from "react";
 import IntroRow from "./IntroRow";
 import BodyRow from "./BodyRow";
-import "./Home.css";
+import "./Main.css";
 
-const Home: React.FC = () => {
+const Main: React.FC = () => {
   return (
     <>
       <IntroRow />
@@ -16,4 +16,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Main;

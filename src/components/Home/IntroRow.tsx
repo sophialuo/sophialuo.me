@@ -7,7 +7,7 @@ const IntroRow: React.FC = () => {
       <div className="me-pic-cropper">
         <img
           className="me-pic"
-          src={require("../assets/images/me.jpg")}
+          src={require("../../assets/images/me.jpg")}
           alt="me"
         />
       </div>
@@ -16,7 +16,7 @@ const IntroRow: React.FC = () => {
         <a href="https://www.linkedin.com/in/syluo/">
           <img
             className="linkedin"
-            src={require("../assets/icons/linkedin.png")}
+            src={require("../../assets/icons/linkedin.png")}
             alt="linkedin"
           />
         </a>
