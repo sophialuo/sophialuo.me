@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useCallback } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
@@ -13,8 +15,8 @@ const Main: React.FC = () => {
 
   const [moveCount, setMoveCount] = useState<number>(0);
   const [mainGameState, setMainGameState] = useState<GameStatus[][]>(
-    _.range(N).map((_index) =>
-      _.range(N).map((_index) => GameStatus.InProgress)
+    _.range(N).map((_index: number) =>
+      _.range(N).map((_index: number) => GameStatus.InProgress)
     )
   );
   const [mainGameStatus, setMainGameStatus] = useState<GameStatus>(

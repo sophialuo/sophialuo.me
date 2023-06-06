@@ -1,8 +1,10 @@
+"use client";
+
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages";
 import UltimateTicTacToe from "./pages/ultimate-tic-tac-toe";
-import "./App.css";
+import "./page.css";
 
 const App: React.FC = () => {
   return (

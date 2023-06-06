@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import React from "react";
 import "./IntroRow.css";
 
@@ -5,19 +7,17 @@ const IntroRow: React.FC = () => {
   return (
     <div className="horizontal">
       <div className="me-pic-cropper">
-        <img
-          className="me-pic"
-          src={require("../../assets/images/me.jpg")}
-          alt="me"
-        />
+        <Image src="/me.jpg" alt="me" width="380" height="500" />
       </div>
       <div className="vertical">
         <div className="name">Sophia Luo</div>
         <a href="https://www.linkedin.com/in/syluo/">
-          <img
+          <Image
             className="linkedin"
-            src={require("../../assets/icons/linkedin.png")}
+            src="/linkedin.png"
             alt="linkedin"
+            width="20"
+            height="20"
           />
         </a>
         <p>
