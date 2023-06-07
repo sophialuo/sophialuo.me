@@ -1,7 +1,0 @@
-.row-wrapper {
-    position: relative;
-    top: -10px;
-    flex-direction: column;
-    display: flex;
-    gap: 28px
-}

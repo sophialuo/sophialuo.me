@@ -1,0 +1,15 @@
+.container {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    max-width: 120vh;
+}
+
+.row-wrapper {
+    position: relative;
+    top: -10px;
+    flex-direction: column;
+    display: flex;
+    gap: 28px
+}

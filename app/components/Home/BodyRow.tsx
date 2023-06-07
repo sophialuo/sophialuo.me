@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import _ from "lodash";
 import "./BodyRow.css";
 
@@ -20,7 +20,7 @@ const tinkeringItems = [
 ];
 
 const BodyRow: React.FC<BodyRowProps> = ({ rowTitle }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div>
@@ -33,7 +33,7 @@ const BodyRow: React.FC<BodyRowProps> = ({ rowTitle }) => {
               <div
                 key={`${rowTitle}_${path}`}
                 className="coming-soon-block"
-                onClick={() => navigate(path)}
+                onClick={() => router.push(path)}
               >
                 {name}
               </div>

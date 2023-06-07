@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import _ from "lodash";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import MiniGame from "./MiniGame";
 import "./Main.css";
 import { Loc, GameStatus, Player } from "./types";
@@ -82,7 +82,7 @@ const Main: React.FC = () => {
   return (
     <div className="container">
       <div className="header">
-        <Link to="/">Back</Link>
+        <Link href="/">Back</Link>
       </div>
       <div className="game-wrapper">
         <h1>Ultimate Tic Tac Toe</h1>
@@ -95,9 +95,8 @@ const Main: React.FC = () => {
               <div className="ultimate-board-row">
                 {_.range(N).map((col: number) => {
                   return (
-                    <div>
+                    <div key={`ultimate-tic-tac-toe_${row}_${col}`}>
                       <MiniGame
-                        key={`ultimate-tic-tac-toe_${row}_${col}`}
                         miniGameLoc={{ row, col }}
                         anyMiniGameAllowed={_.isNil(focusedLoc)}
                         focused={
