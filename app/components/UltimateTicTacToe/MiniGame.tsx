@@ -92,7 +92,9 @@ const MiniGame: React.FC<MiniGameProps> = ({
         (anyMiniGameAllowed && miniGameStatus === GameStatus.InProgress)
           ? "board-focused"
           : ""
-      } ${wiggle ? "board-wiggle" : ""}`}
+      } ${
+        wiggle && miniGameStatus === GameStatus.InProgress ? "board-wiggle" : ""
+      }`}
       onAnimationEnd={() => setWiggle(false)}
     >
       {miniGameStatus !== GameStatus.InProgress &&

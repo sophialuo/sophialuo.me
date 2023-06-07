@@ -65,7 +65,7 @@ const Main: React.FC = () => {
 
       const { row, col } = loc;
       let newMainGameState = mainGameState;
-
+      let newMainGameStatus = mainGameStatus;
       if (miniGameStatus !== GameStatus.InProgress) {
         // update maingamestate
         newMainGameState = _.cloneDeep(mainGameState);
@@ -73,18 +73,19 @@ const Main: React.FC = () => {
         setMainGameState(newMainGameState);
 
         // update maingame status
-        const newStatus = checkGameStatus(
+        newMainGameStatus = checkGameStatus(
           newMoveCount,
           loc,
           newMainGameState,
           miniGameStatus
         );
-        setMainGameStatus(newStatus);
+        setMainGameStatus(newMainGameStatus);
+      }
 
-        if (newStatus !== GameStatus.InProgress) {
-          setFocusedLoc(undefined);
-          return;
-        }
+      // main game is over
+      if (newMainGameStatus !== GameStatus.InProgress) {
+        setFocusedLoc(undefined);
+        return;
       }
 
       // focused minigame (or not)
@@ -124,6 +125,11 @@ const Main: React.FC = () => {
             ))}
           </div>
         )}
+        {mainGameStatus === GameStatus.InProgress && (
+          <h2 className="game-message">{`Next: Player ${
+            curPlayer === Player.X ? "X" : "O"
+          }`}</h2>
+        )}
         <div className="ultimate-board">
           {_.range(N).map((row: number) => {
             return (
@@ -136,11 +142,17 @@ const Main: React.FC = () => {
                     <div key={`ultimate-tic-tac-toe_${row}_${col}`}>
                       <MiniGame
                         miniGameLoc={{ row, col }}
-                        anyMiniGameAllowed={_.isNil(focusedLoc)}
+                        anyMiniGameAllowed={
+                          mainGameStatus === GameStatus.InProgress &&
+                          _.isNil(focusedLoc)
+                        }
                         focused={
-                          row === focusedLoc?.row && col === focusedLoc?.col
+                          mainGameStatus === GameStatus.InProgress &&
+                          row === focusedLoc?.row &&
+                          col === focusedLoc?.col
                         }
                         wiggle={
+                          mainGameStatus === GameStatus.InProgress &&
                           wiggle &&
                           ((focusedLoc &&
                             row === focusedLoc.row &&
