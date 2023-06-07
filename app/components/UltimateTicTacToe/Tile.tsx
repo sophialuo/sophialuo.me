@@ -26,8 +26,12 @@ const Tile: React.FC<TileProps> = ({
       }`}
       onClick={() => handleTileClick({ row, col })}
     >
-      {tilePlayer === Player.X && <FontAwesomeIcon icon={faXmark} size="lg" />}
-      {tilePlayer === Player.O && <FontAwesomeIcon icon={faCircle} />}
+      {tilePlayer === Player.X && (
+        <FontAwesomeIcon className="tile-icon" icon={faXmark} size="lg" />
+      )}
+      {tilePlayer === Player.O && (
+        <FontAwesomeIcon className="tile-icon" icon={faCircle} />
+      )}
     </div>
   );
 };

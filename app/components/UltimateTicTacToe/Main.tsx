@@ -16,6 +16,7 @@ import {
 import { checkGameStatus } from "./helpers";
 
 const Main: React.FC = () => {
+  const [wiggle, setWiggle] = useState<boolean>(false);
   const [focusedLoc, setFocusedLoc] = useState<Loc | undefined>(undefined);
   const [curPlayer, setCurPlayer] = useState<Player>(Player.X);
 
@@ -92,6 +93,7 @@ const Main: React.FC = () => {
       } else {
         setFocusedLoc(undefined);
       }
+      setWiggle(true);
     },
     [
       mainGameState,
@@ -101,6 +103,7 @@ const Main: React.FC = () => {
       setMainGameStatus,
       curPlayer,
       setCurPlayer,
+      setWiggle,
     ]
   );
 
@@ -137,6 +140,14 @@ const Main: React.FC = () => {
                         focused={
                           row === focusedLoc?.row && col === focusedLoc?.col
                         }
+                        wiggle={
+                          wiggle &&
+                          ((focusedLoc &&
+                            row === focusedLoc.row &&
+                            col === focusedLoc.col) ||
+                            !focusedLoc)
+                        }
+                        setWiggle={setWiggle}
                         mainGameStatus={mainGameStatus}
                         miniGameStatus={mainGameState[row][col]}
                         curPlayer={curPlayer}

@@ -17,6 +17,31 @@
     height:100%;
 }
 
+h1:hover {
+    animation: wiggle 0.7s;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(5deg);
+    }
+    25% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 .game-message {
     color: #853862;
 }
@@ -42,7 +67,6 @@
 }
 
 
-
 .board {
     flex-direction: column;
     display: flex;
@@ -52,6 +76,11 @@
     border-radius: 10%;
     background: radial-gradient(#e087b86f, transparent);
     box-shadow: 0 0 15px 15px #e087b819;
+    /* animation: wiggle 0.7s; */
+}
+
+.board-wiggle {
+    animation: wiggle 0.7s;
 }
 
 .board-row {
@@ -67,6 +96,7 @@
     justify-content: center;
     color: #853862;
     font-size: 80px;
+    animation: grow .5s;
 }
 
 .tile {
@@ -76,6 +106,20 @@
     align-items: center;
     justify-content: center;
     color: #853862;
+}
+
+.tile-icon {
+    animation: grow .5s;
+}
+
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }
 
 .tile_r_0 {

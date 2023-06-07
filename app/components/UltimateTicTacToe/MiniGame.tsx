@@ -20,6 +20,8 @@ interface MiniGameProps {
     { loc, miniGameStatus }: { loc: Loc; miniGameStatus: GameStatus },
     newLoc: Loc
   ) => void;
+  wiggle: boolean;
+  setWiggle: (val: boolean) => void;
 }
 
 const MiniGame: React.FC<MiniGameProps> = ({
@@ -30,6 +32,8 @@ const MiniGame: React.FC<MiniGameProps> = ({
   mainGameStatus,
   miniGameStatus,
   handleNext,
+  wiggle,
+  setWiggle,
 }) => {
   const [moveCount, setMoveCount] = useState<number>(0);
   const [miniGameState, setMiniGameState] = useState<(Player | undefined)[][]>(
@@ -82,7 +86,15 @@ const MiniGame: React.FC<MiniGameProps> = ({
   );
 
   return (
-    <div className={`board ${focused ? "board-focused" : ""}`}>
+    <div
+      className={`board ${
+        focused ||
+        (anyMiniGameAllowed && miniGameStatus === GameStatus.InProgress)
+          ? "board-focused"
+          : ""
+      } ${wiggle ? "board-wiggle" : ""}`}
+      onAnimationEnd={() => setWiggle(false)}
+    >
       {miniGameStatus !== GameStatus.InProgress &&
         !showMiniGameStateOnHover && (
           <div
