@@ -1,5 +1,3 @@
-import "./global.css";
-import "./global.css";
 import React from "react";
 import Home from "./components/Home";
 import Layout from "./components/Layout";

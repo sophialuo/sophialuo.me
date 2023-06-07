@@ -1,5 +1,5 @@
 import React from "react";
-import "./Main.css";
+import "./styles.css";
 import { Loc, Player } from "./types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";

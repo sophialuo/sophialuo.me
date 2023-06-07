@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import _ from "lodash";
 import Link from "next/link";
 import MiniGame from "./MiniGame";
-import "./Main.css";
+import "./styles.css";
 import { Loc, GameStatus, Player } from "./types";
-import { N } from "./constants";
+import {
+  N,
+  MSG_BEGINNING,
+  MSG_CLICK_FOCUSED,
+  MSG_CLICK_ANYWHERE,
+  MSG_GAME_OVER,
+} from "./constants";
 import { checkGameStatus } from "./helpers";
 
 const Main: React.FC = () => {
@@ -23,6 +29,23 @@ const Main: React.FC = () => {
     GameStatus.InProgress
   );
 
+  const [gameMessage, setGameMessage] = useState<string>(MSG_BEGINNING);
+
+  useEffect(() => {
+    if (moveCount === 0) {
+      return;
+    }
+    if (mainGameStatus !== GameStatus.InProgress) {
+      setGameMessage(MSG_GAME_OVER(mainGameStatus));
+    } else {
+      if (!focusedLoc) {
+        setGameMessage(MSG_CLICK_ANYWHERE);
+      } else {
+        setGameMessage(MSG_CLICK_FOCUSED);
+      }
+    }
+  }, [moveCount, mainGameStatus, focusedLoc, setGameMessage]);
+
   const handleNext = useCallback(
     (
       { loc, miniGameStatus }: { loc: Loc; miniGameStatus: GameStatus },
@@ -35,6 +58,10 @@ const Main: React.FC = () => {
         setCurPlayer(Player.O);
       }
 
+      // update movecount
+      const newMoveCount = moveCount + 1;
+      setMoveCount(newMoveCount);
+
       const { row, col } = loc;
       let newMainGameState = mainGameState;
 
@@ -43,9 +70,7 @@ const Main: React.FC = () => {
         newMainGameState = _.cloneDeep(mainGameState);
         newMainGameState[row][col] = miniGameStatus;
         setMainGameState(newMainGameState);
-        // update movecount
-        const newMoveCount = moveCount + 1;
-        setMoveCount(newMoveCount);
+
         // update maingame status
         const newStatus = checkGameStatus(
           newMoveCount,
@@ -86,13 +111,14 @@ const Main: React.FC = () => {
       </div>
       <div className="game-wrapper">
         <h1>Ultimate Tic Tac Toe</h1>
-        {mainGameStatus !== GameStatus.InProgress && (
-          <h2 className="game-over">{`Game Over: ${mainGameStatus}`}</h2>
-        )}
+        <h2 className="game-message">{gameMessage}</h2>
         <div className="ultimate-board">
           {_.range(N).map((row: number) => {
             return (
-              <div className="ultimate-board-row">
+              <div
+                className="ultimate-board-row"
+                key={`ultimate-tic-tac-toe_${row}`}
+              >
                 {_.range(N).map((col: number) => {
                   return (
                     <div key={`ultimate-tic-tac-toe_${row}_${col}`}>

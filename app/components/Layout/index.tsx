@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../global.css";
 import React from "react";
 
 const Layout: React.FC<any> = ({ children }) => {

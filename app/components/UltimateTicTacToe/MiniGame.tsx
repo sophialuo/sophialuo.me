@@ -1,6 +1,6 @@
+import "./styles.css";
 import React, { useState, useCallback } from "react";
 import _ from "lodash";
-import "./Main.css";
 import { Loc, Player, GameStatus } from "./types";
 import { checkGameStatus } from "./helpers";
 import { N } from "./constants";
