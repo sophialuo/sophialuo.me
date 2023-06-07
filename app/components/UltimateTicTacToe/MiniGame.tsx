@@ -39,6 +39,8 @@ const MiniGame: React.FC<MiniGameProps> = ({
   const [miniGameState, setMiniGameState] = useState<(Player | undefined)[][]>(
     _.range(N).map((_index) => _.range(N).map((_index) => undefined))
   );
+  const shouldFocus =
+    focused || (anyMiniGameAllowed && miniGameStatus === GameStatus.InProgress);
 
   const [showMiniGameStateOnHover, setShowMiniGameStateOnHover] =
     useState<boolean>(true);
@@ -87,12 +89,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
 
   return (
     <div
-      className={`board ${
-        focused ||
-        (anyMiniGameAllowed && miniGameStatus === GameStatus.InProgress)
-          ? "board-focused"
-          : ""
-      } ${
+      className={`board ${shouldFocus ? "board-focused" : ""} ${
         wiggle && miniGameStatus === GameStatus.InProgress ? "board-wiggle" : ""
       }`}
       onAnimationEnd={() => setWiggle(false)}
@@ -129,6 +126,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
                       col={col}
                       handleTileClick={handleTileClick}
                       tilePlayer={miniGameState[row][col]}
+                      miniGameIsFocused={shouldFocus}
                     />
                   );
                 })}

@@ -76,7 +76,6 @@ h1:hover {
     border-radius: 10%;
     background: radial-gradient(#e087b86f, transparent);
     box-shadow: 0 0 15px 15px #e087b819;
-    /* animation: wiggle 0.7s; */
 }
 
 .board-wiggle {
@@ -108,6 +107,11 @@ h1:hover {
     color: #853862;
 }
 
+.tile-hover {
+    cursor: pointer;
+    background: radial-gradient(#e087b8ae, transparent);
+}
+
 .tile-icon {
     animation: grow .5s;
 }
@@ -122,24 +126,24 @@ h1:hover {
     }
 }
 
-.tile_r_0 {
+.tile-r-0 {
     border-right: solid; 
     border-bottom: solid; 
     border-color:gray;
 }
 
-.tile_r_1 {
+.tile-r-1 {
     border-right: solid;
     border-bottom: solid;
     border-color: gray;
 }
 
-.tile_r_2 {
+.tile-r-2 {
     border-bottom: solid;
     border-color: gray;
 }
 
-.tile_2_c {
+.tile-2-c {
     border-right: solid;
     border-color: gray;
 }
