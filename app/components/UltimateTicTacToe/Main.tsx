@@ -29,7 +29,7 @@ const Main: React.FC = () => {
     GameStatus.InProgress
   );
 
-  const [gameMessage, setGameMessage] = useState<string>(MSG_BEGINNING);
+  const [gameMessage, setGameMessage] = useState<string[]>(MSG_BEGINNING);
 
   useEffect(() => {
     if (moveCount === 0) {
@@ -111,7 +111,16 @@ const Main: React.FC = () => {
       </div>
       <div className="game-wrapper">
         <h1>Ultimate Tic Tac Toe</h1>
-        <h2 className="game-message">{gameMessage}</h2>
+        <h2 className="game-message">{gameMessage[0]}</h2>
+        {gameMessage.length > 0 && (
+          <div className="game-sub-message-wrapper">
+            {gameMessage.slice(1).map((msg) => (
+              <div className="game-sub-message" key={msg}>
+                {msg}
+              </div>
+            ))}
+          </div>
+        )}
         <div className="ultimate-board">
           {_.range(N).map((row: number) => {
             return (

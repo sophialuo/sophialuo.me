@@ -21,6 +21,14 @@
     color: #853862;
 }
 
+.game-sub-message-wrapper {
+    margin-bottom: 10px;
+}
+
+.game-sub-message {
+   margin-bottom: 8px;
+}
+
 .ultimate-board {
     flex-direction: column;
     display: flex;
