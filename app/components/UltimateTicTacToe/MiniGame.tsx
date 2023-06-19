@@ -11,8 +11,7 @@ import { faCircle } from "@fortawesome/free-regular-svg-icons";
 
 interface MiniGameProps {
   miniGameLoc: Loc;
-  focused: boolean;
-  anyMiniGameAllowed: boolean;
+  isActive: boolean;
   curPlayer: Player;
   mainGameStatus: GameStatus;
   miniGameStatus: GameStatus;
@@ -26,8 +25,7 @@ interface MiniGameProps {
 
 const MiniGame: React.FC<MiniGameProps> = ({
   miniGameLoc,
-  focused,
-  anyMiniGameAllowed,
+  isActive,
   curPlayer,
   mainGameStatus,
   miniGameStatus,
@@ -39,8 +37,6 @@ const MiniGame: React.FC<MiniGameProps> = ({
   const [miniGameState, setMiniGameState] = useState<(Player | undefined)[][]>(
     _.range(N).map((_index) => _.range(N).map((_index) => undefined))
   );
-  const shouldFocus =
-    focused || (anyMiniGameAllowed && miniGameStatus === GameStatus.InProgress);
 
   const [showMiniGameStateOnHover, setShowMiniGameStateOnHover] =
     useState<boolean>(true);
@@ -48,10 +44,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
   const handleTileClick = useCallback(
     (nextLoc: Loc) => {
       const { row, col } = nextLoc;
-      const isClickable =
-        mainGameStatus === GameStatus.InProgress &&
-        miniGameStatus === GameStatus.InProgress &&
-        (anyMiniGameAllowed || (focused && _.isNil(miniGameState[row][col])));
+      const isClickable = isActive && _.isNil(miniGameState[row][col]);
 
       if (isClickable) {
         // update minigamestate
@@ -75,10 +68,9 @@ const MiniGame: React.FC<MiniGameProps> = ({
     [
       mainGameStatus,
       miniGameStatus,
-      anyMiniGameAllowed,
+      isActive,
       curPlayer,
       miniGameLoc,
-      focused,
       miniGameState,
       setMiniGameState,
       moveCount,
@@ -89,7 +81,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
 
   return (
     <div
-      className={`board ${shouldFocus ? "board-focused" : ""} ${
+      className={`board ${isActive ? "board-focused" : ""} ${
         wiggle && miniGameStatus === GameStatus.InProgress ? "board-wiggle" : ""
       }`}
       onAnimationEnd={() => setWiggle(false)}
@@ -126,7 +118,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
                       col={col}
                       handleTileClick={handleTileClick}
                       tilePlayer={miniGameState[row][col]}
-                      miniGameIsFocused={shouldFocus}
+                      isActive={isActive}
                     />
                   );
                 })}

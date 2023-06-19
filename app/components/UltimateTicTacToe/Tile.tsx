@@ -10,7 +10,7 @@ import { N } from "./constants";
 interface TileProps {
   row: number;
   col: number;
-  miniGameIsFocused: boolean;
+  isActive: boolean;
   handleTileClick: (loc: Loc) => void;
   tilePlayer?: Player;
 }
@@ -18,7 +18,7 @@ interface TileProps {
 const Tile: React.FC<TileProps> = ({
   row,
   col,
-  miniGameIsFocused,
+  isActive,
   handleTileClick,
   tilePlayer,
 }) => {
@@ -28,9 +28,7 @@ const Tile: React.FC<TileProps> = ({
     <div
       className={`tile tile-${row === N - 1 ? row : "r"}-${
         row === N - 1 && col !== N - 1 ? "c" : col
-      } ${
-        _.isNil(tilePlayer) && hover && miniGameIsFocused ? "tile-hover" : ""
-      }`}
+      } ${_.isNil(tilePlayer) && hover && isActive ? "tile-hover" : ""}`}
       onClick={() => handleTileClick({ row, col })}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

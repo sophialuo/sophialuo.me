@@ -138,30 +138,26 @@ const Main: React.FC = () => {
                 key={`ultimate-tic-tac-toe_${row}`}
               >
                 {_.range(N).map((col: number) => {
+                  const miniGameStatus = mainGameState[row][col];
+                  const isActive =
+                    mainGameStatus === GameStatus.InProgress &&
+                    miniGameStatus === GameStatus.InProgress &&
+                    (_.isNil(focusedLoc) ||
+                      (row === focusedLoc?.row && col === focusedLoc?.col));
+
                   return (
                     <div key={`ultimate-tic-tac-toe_${row}_${col}`}>
                       <MiniGame
                         miniGameLoc={{ row, col }}
-                        anyMiniGameAllowed={
-                          mainGameStatus === GameStatus.InProgress &&
-                          _.isNil(focusedLoc)
-                        }
-                        focused={
-                          mainGameStatus === GameStatus.InProgress &&
-                          row === focusedLoc?.row &&
-                          col === focusedLoc?.col
-                        }
+                        isActive={isActive}
                         wiggle={
                           mainGameStatus === GameStatus.InProgress &&
                           wiggle &&
-                          ((focusedLoc &&
-                            row === focusedLoc.row &&
-                            col === focusedLoc.col) ||
-                            !focusedLoc)
+                          isActive
                         }
                         setWiggle={setWiggle}
                         mainGameStatus={mainGameStatus}
-                        miniGameStatus={mainGameState[row][col]}
+                        miniGameStatus={miniGameStatus}
                         curPlayer={curPlayer}
                         handleNext={handleNext}
                       />
