@@ -1,6 +1,12 @@
 import _ from "lodash";
 import { Loc, Player, GameStatus } from "./types";
-import { N } from "./constants";
+import {
+  N,
+  MSG_BEGINNING,
+  MSG_CLICK_FOCUSED,
+  MSG_CLICK_ANYWHERE,
+  MSG_GAME_OVER,
+} from "./constants";
 
 const locIsValid = (loc: Loc) => {
   const { row, col } = loc;
@@ -70,4 +76,23 @@ export const checkGameStatus = (
     return GameStatus.Tied;
   }
   return GameStatus.InProgress;
+};
+
+export const getGameMessage = (
+  moveCount: number,
+  mainGameStatus: GameStatus,
+  focusedLoc?: Loc
+) => {
+  if (moveCount === 0) {
+    return MSG_BEGINNING;
+  }
+  if (mainGameStatus !== GameStatus.InProgress) {
+    return MSG_GAME_OVER(mainGameStatus);
+  } else {
+    if (!focusedLoc) {
+      return MSG_CLICK_ANYWHERE;
+    } else {
+      return MSG_CLICK_FOCUSED;
+    }
+  }
 };

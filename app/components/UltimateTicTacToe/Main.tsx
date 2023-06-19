@@ -1,19 +1,13 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import _ from "lodash";
 import Link from "next/link";
 import MiniGame from "./MiniGame";
 import "./styles.css";
 import { Loc, GameStatus, Player } from "./types";
-import {
-  N,
-  MSG_BEGINNING,
-  MSG_CLICK_FOCUSED,
-  MSG_CLICK_ANYWHERE,
-  MSG_GAME_OVER,
-} from "./constants";
-import { checkGameStatus } from "./helpers";
+import { N } from "./constants";
+import { checkGameStatus, getGameMessage } from "./helpers";
 
 const Main: React.FC = () => {
   const [wiggle, setWiggle] = useState<boolean>(false);
@@ -29,23 +23,6 @@ const Main: React.FC = () => {
   const [mainGameStatus, setMainGameStatus] = useState<GameStatus>(
     GameStatus.InProgress
   );
-
-  const [gameMessage, setGameMessage] = useState<string[]>(MSG_BEGINNING);
-
-  useEffect(() => {
-    if (moveCount === 0) {
-      return;
-    }
-    if (mainGameStatus !== GameStatus.InProgress) {
-      setGameMessage(MSG_GAME_OVER(mainGameStatus));
-    } else {
-      if (!focusedLoc) {
-        setGameMessage(MSG_CLICK_ANYWHERE);
-      } else {
-        setGameMessage(MSG_CLICK_FOCUSED);
-      }
-    }
-  }, [moveCount, mainGameStatus, focusedLoc, setGameMessage]);
 
   const handleNext = useCallback(
     (
@@ -106,6 +83,11 @@ const Main: React.FC = () => {
       setCurPlayer,
       setWiggle,
     ]
+  );
+
+  const gameMessage = useMemo(
+    () => getGameMessage(moveCount, mainGameStatus, focusedLoc),
+    [moveCount, mainGameStatus, focusedLoc]
   );
 
   return (
