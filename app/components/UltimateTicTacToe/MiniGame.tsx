@@ -109,7 +109,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
         <div onMouseLeave={() => setShowMiniGameStateOnHover(false)}>
           {_.range(N).map((row: number) => {
             return (
-              <div className="board-row">
+              <div className="board-row" key={`minigame-board-row-${row}`}>
                 {_.range(N).map((col: number) => {
                   return (
                     <Tile
