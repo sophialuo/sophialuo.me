@@ -17,8 +17,17 @@
     height:100%;
 }
 
+h1 {
+    padding: 16px
+}
+
 h1:hover {
+    padding: 16px;
     animation: wiggle 0.7s;
+}
+
+h2 {
+    margin: 4px;
 }
 
 @keyframes wiggle {
@@ -70,11 +79,12 @@ h1:hover {
 .board {
     flex-direction: column;
     display: flex;
+    padding: 1px;
 }
 
 .board-focused {
     border-radius: 10%;
-    background: radial-gradient(#e087b86f, transparent);
+    color: #853862;
     box-shadow: 0 0 15px 15px #e087b819;
 }
 
@@ -109,7 +119,7 @@ h1:hover {
 
 .tile-hover {
     cursor: pointer;
-    background: radial-gradient(#e087b8ae, transparent);
+    background: radial-gradient(#e087b86f, transparent);
 }
 
 .tile-icon {
