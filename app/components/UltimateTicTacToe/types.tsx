@@ -8,7 +8,7 @@ export enum Player {
   X = 1,
 }
 
-export enum GameStatus {
+export enum Status {
   InProgress = "In Progress",
   Tied = "Tied",
   OWon = "Player O Won",

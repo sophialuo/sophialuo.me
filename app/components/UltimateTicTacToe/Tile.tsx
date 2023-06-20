@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import _ from "lodash";
-import { Loc, Player } from "./types";
+import { Loc, Status } from "./types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
@@ -12,7 +12,7 @@ interface TileProps {
   col: number;
   isActive: boolean;
   handleTileClick: (loc: Loc) => void;
-  tilePlayer?: Player;
+  tileStatus?: Status;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -20,7 +20,7 @@ const Tile: React.FC<TileProps> = ({
   col,
   isActive,
   handleTileClick,
-  tilePlayer,
+  tileStatus,
 }) => {
   const [hover, setHover] = useState<boolean>(false);
 
@@ -28,15 +28,15 @@ const Tile: React.FC<TileProps> = ({
     <div
       className={`tile tile-${row === N - 1 ? row : "r"}-${
         row === N - 1 && col !== N - 1 ? "c" : col
-      } ${_.isNil(tilePlayer) && hover && isActive ? "tile-hover" : ""}`}
+      } ${_.isNil(tileStatus) && hover && isActive ? "tile-hover" : ""}`}
       onClick={() => handleTileClick({ row, col })}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {tilePlayer === Player.X && (
+      {tileStatus === Status.XWon && (
         <FontAwesomeIcon className="tile-icon" icon={faXmark} size="lg" />
       )}
-      {tilePlayer === Player.O && (
+      {tileStatus === Status.OWon && (
         <FontAwesomeIcon className="tile-icon" icon={faCircle} />
       )}
     </div>

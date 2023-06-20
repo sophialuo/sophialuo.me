@@ -1,8 +1,8 @@
 import "./styles.css";
 import React, { useState, useCallback } from "react";
 import _ from "lodash";
-import { Loc, Player, GameStatus } from "./types";
-import { checkGameStatus } from "./helpers";
+import { Loc, Player, Status } from "./types";
+import { checkStatus } from "./helpers";
 import { N } from "./constants";
 import Tile from "./Tile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,10 +13,10 @@ interface MiniGameProps {
   miniGameLoc: Loc;
   isActive: boolean;
   curPlayer: Player;
-  mainGameStatus: GameStatus;
-  miniGameStatus: GameStatus;
+  mainStatus: Status;
+  miniStatus: Status;
   handleNext: (
-    { loc, miniGameStatus }: { loc: Loc; miniGameStatus: GameStatus },
+    { loc, miniStatus }: { loc: Loc; miniStatus: Status },
     newLoc: Loc
   ) => void;
   wiggle: boolean;
@@ -27,14 +27,14 @@ const MiniGame: React.FC<MiniGameProps> = ({
   miniGameLoc,
   isActive,
   curPlayer,
-  mainGameStatus,
-  miniGameStatus,
+  mainStatus,
+  miniStatus,
   handleNext,
   wiggle,
   setWiggle,
 }) => {
   const [moveCount, setMoveCount] = useState<number>(0);
-  const [miniGameState, setMiniGameState] = useState<(Player | undefined)[][]>(
+  const [miniGameState, setMiniGameState] = useState<(Status | undefined)[][]>(
     _.range(N).map((_index) => _.range(N).map((_index) => undefined))
   );
 
@@ -49,25 +49,26 @@ const MiniGame: React.FC<MiniGameProps> = ({
       if (isClickable) {
         // update minigamestate
         const newMiniGameState = _.cloneDeep(miniGameState);
-        newMiniGameState[row][col] = curPlayer;
+        const tileStatus = curPlayer === Player.X ? Status.XWon : Status.OWon;
+        newMiniGameState[row][col] = tileStatus;
         setMiniGameState(newMiniGameState);
         // update movecount
         const newMoveCount = moveCount + 1;
         setMoveCount(newMoveCount);
         // update minigame status
-        const newStatus = checkGameStatus(
+        const newStatus = checkStatus(
           newMoveCount,
           nextLoc,
           newMiniGameState,
-          curPlayer
+          tileStatus
         );
         // next turn
-        handleNext({ loc: miniGameLoc, miniGameStatus: newStatus }, nextLoc);
+        handleNext({ loc: miniGameLoc, miniStatus: newStatus }, nextLoc);
       }
     },
     [
-      mainGameStatus,
-      miniGameStatus,
+      mainStatus,
+      miniStatus,
       isActive,
       curPlayer,
       miniGameLoc,
@@ -82,30 +83,28 @@ const MiniGame: React.FC<MiniGameProps> = ({
   return (
     <div
       className={`board ${isActive ? "board-focused" : ""} ${
-        wiggle && miniGameStatus === GameStatus.InProgress ? "board-wiggle" : ""
+        wiggle && miniStatus === Status.InProgress ? "board-wiggle" : ""
       }`}
       onAnimationEnd={() => setWiggle(false)}
     >
-      {miniGameStatus !== GameStatus.InProgress &&
-        !showMiniGameStateOnHover && (
-          <div
-            className="mini-game-tile"
-            onMouseEnter={() => setShowMiniGameStateOnHover(true)}
-            onMouseLeave={() => setShowMiniGameStateOnHover(false)}
-          >
-            <FontAwesomeIcon
-              icon={
-                miniGameStatus === GameStatus.Tied
-                  ? faPencil
-                  : miniGameStatus === GameStatus.XWon
-                  ? faXmark
-                  : faCircle
-              }
-            />
-          </div>
-        )}
-      {(miniGameStatus === GameStatus.InProgress ||
-        showMiniGameStateOnHover) && (
+      {miniStatus !== Status.InProgress && !showMiniGameStateOnHover && (
+        <div
+          className="mini-game-tile"
+          onMouseEnter={() => setShowMiniGameStateOnHover(true)}
+          onMouseLeave={() => setShowMiniGameStateOnHover(false)}
+        >
+          <FontAwesomeIcon
+            icon={
+              miniStatus === Status.Tied
+                ? faPencil
+                : miniStatus === Status.XWon
+                ? faXmark
+                : faCircle
+            }
+          />
+        </div>
+      )}
+      {(miniStatus === Status.InProgress || showMiniGameStateOnHover) && (
         <div onMouseLeave={() => setShowMiniGameStateOnHover(false)}>
           {_.range(N).map((row: number) => {
             return (
@@ -117,7 +116,7 @@ const MiniGame: React.FC<MiniGameProps> = ({
                       row={row}
                       col={col}
                       handleTileClick={handleTileClick}
-                      tilePlayer={miniGameState[row][col]}
+                      tileStatus={miniGameState[row][col]}
                       isActive={isActive}
                     />
                   );

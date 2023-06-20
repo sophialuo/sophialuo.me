@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Loc, Player, GameStatus } from "./types";
+import { Loc, Status } from "./types";
 import {
   N,
   MSG_BEGINNING,
@@ -15,8 +15,8 @@ const locIsValid = (loc: Loc) => {
 
 const checkGameWinHelper = (
   loc: Loc,
-  gameState: (Player | undefined)[][] | GameStatus[][],
-  playerOrStatus: Player | GameStatus,
+  gameState: (Status | undefined)[][],
+  status: Status,
   diffs: Loc[]
 ) => {
   const { row, col } = loc;
@@ -24,10 +24,7 @@ const checkGameWinHelper = (
   for (const diff of diffs) {
     const { row: rowDiff, col: colDiff } = diff;
     const newLoc = { row: row + rowDiff, col: col + colDiff };
-    if (
-      locIsValid(newLoc) &&
-      gameState[newLoc.row][newLoc.col] === playerOrStatus
-    ) {
+    if (locIsValid(newLoc) && gameState[newLoc.row][newLoc.col] === status) {
       count = count + 1;
     }
     if (count >= N) {
@@ -52,42 +49,37 @@ const minorDiagDiff = _.range(-N + 1, N).map((diff: number) => {
   return { row: -diff, col: diff };
 });
 
-export const checkGameStatus = (
+export const checkStatus = (
   moveCount: number,
   loc: Loc,
-  gameState: (Player | undefined)[][] | GameStatus[][],
-  playerOrStatus: Player | GameStatus
+  gameState: (Status | undefined)[][],
+  status: Status
 ) => {
   if (
-    checkGameWinHelper(loc, gameState, playerOrStatus, horizontalDiff) ||
-    checkGameWinHelper(loc, gameState, playerOrStatus, verticalDiff) ||
-    checkGameWinHelper(loc, gameState, playerOrStatus, majorDiagDiff) ||
-    checkGameWinHelper(loc, gameState, playerOrStatus, minorDiagDiff)
+    checkGameWinHelper(loc, gameState, status, horizontalDiff) ||
+    checkGameWinHelper(loc, gameState, status, verticalDiff) ||
+    checkGameWinHelper(loc, gameState, status, majorDiagDiff) ||
+    checkGameWinHelper(loc, gameState, status, minorDiagDiff)
   ) {
-    if (playerOrStatus === Player.O || playerOrStatus === GameStatus.OWon) {
-      return GameStatus.OWon;
-    }
-    if (playerOrStatus === Player.X || playerOrStatus === GameStatus.XWon) {
-      return GameStatus.XWon;
-    }
+    return status;
   }
 
   if (moveCount === N * N) {
-    return GameStatus.Tied;
+    return Status.Tied;
   }
-  return GameStatus.InProgress;
+  return Status.InProgress;
 };
 
 export const getGameMessage = (
   moveCount: number,
-  mainGameStatus: GameStatus,
+  mainStatus: Status,
   focusedLoc?: Loc
 ) => {
   if (moveCount === 0) {
     return MSG_BEGINNING;
   }
-  if (mainGameStatus !== GameStatus.InProgress) {
-    return MSG_GAME_OVER(mainGameStatus);
+  if (mainStatus !== Status.InProgress) {
+    return MSG_GAME_OVER(mainStatus);
   } else {
     if (!focusedLoc) {
       return MSG_CLICK_ANYWHERE;

@@ -5,9 +5,9 @@ import _ from "lodash";
 import Link from "next/link";
 import MiniGame from "./MiniGame";
 import "./styles.css";
-import { Loc, GameStatus, Player } from "./types";
+import { Loc, Status, Player } from "./types";
 import { N } from "./constants";
-import { checkGameStatus, getGameMessage } from "./helpers";
+import { checkStatus, getGameMessage } from "./helpers";
 
 const Main: React.FC = () => {
   const [wiggle, setWiggle] = useState<boolean>(false);
@@ -15,20 +15,15 @@ const Main: React.FC = () => {
   const [curPlayer, setCurPlayer] = useState<Player>(Player.X);
 
   const [moveCount, setMoveCount] = useState<number>(0);
-  const [mainGameState, setMainGameState] = useState<GameStatus[][]>(
+  const [mainGameState, setMainGameState] = useState<Status[][]>(
     _.range(N).map((_index: number) =>
-      _.range(N).map((_index: number) => GameStatus.InProgress)
+      _.range(N).map((_index: number) => Status.InProgress)
     )
   );
-  const [mainGameStatus, setMainGameStatus] = useState<GameStatus>(
-    GameStatus.InProgress
-  );
+  const [mainStatus, setMainStatus] = useState<Status>(Status.InProgress);
 
   const handleNext = useCallback(
-    (
-      { loc, miniGameStatus }: { loc: Loc; miniGameStatus: GameStatus },
-      newLoc: Loc
-    ) => {
+    ({ loc, miniStatus }: { loc: Loc; miniStatus: Status }, newLoc: Loc) => {
       // change player
       if (curPlayer === Player.O) {
         setCurPlayer(Player.X);
@@ -42,31 +37,31 @@ const Main: React.FC = () => {
 
       const { row, col } = loc;
       let newMainGameState = mainGameState;
-      let newMainGameStatus = mainGameStatus;
-      if (miniGameStatus !== GameStatus.InProgress) {
+      let newMainStatus = mainStatus;
+      if (miniStatus !== Status.InProgress) {
         // update maingamestate
         newMainGameState = _.cloneDeep(mainGameState);
-        newMainGameState[row][col] = miniGameStatus;
+        newMainGameState[row][col] = miniStatus;
         setMainGameState(newMainGameState);
 
         // update maingame status
-        newMainGameStatus = checkGameStatus(
+        newMainStatus = checkStatus(
           newMoveCount,
           loc,
           newMainGameState,
-          miniGameStatus
+          miniStatus
         );
-        setMainGameStatus(newMainGameStatus);
+        setMainStatus(newMainStatus);
       }
 
       // main game is over
-      if (newMainGameStatus !== GameStatus.InProgress) {
+      if (newMainStatus !== Status.InProgress) {
         setFocusedLoc(undefined);
         return;
       }
 
       // focused minigame (or not)
-      if (newMainGameState[newLoc.row][newLoc.col] === GameStatus.InProgress) {
+      if (newMainGameState[newLoc.row][newLoc.col] === Status.InProgress) {
         setFocusedLoc(newLoc);
       } else {
         setFocusedLoc(undefined);
@@ -78,7 +73,7 @@ const Main: React.FC = () => {
       setMainGameState,
       moveCount,
       setMoveCount,
-      setMainGameStatus,
+      setMainStatus,
       curPlayer,
       setCurPlayer,
       setWiggle,
@@ -86,8 +81,8 @@ const Main: React.FC = () => {
   );
 
   const gameMessage = useMemo(
-    () => getGameMessage(moveCount, mainGameStatus, focusedLoc),
-    [moveCount, mainGameStatus, focusedLoc]
+    () => getGameMessage(moveCount, mainStatus, focusedLoc),
+    [moveCount, mainStatus, focusedLoc]
   );
 
   return (
@@ -107,7 +102,7 @@ const Main: React.FC = () => {
             ))}
           </div>
         )}
-        {mainGameStatus === GameStatus.InProgress && (
+        {mainStatus === Status.InProgress && (
           <h2 className="game-message">{`Next: Player ${
             curPlayer === Player.X ? "X" : "O"
           }`}</h2>
@@ -120,10 +115,10 @@ const Main: React.FC = () => {
                 key={`ultimate-tic-tac-toe_${row}`}
               >
                 {_.range(N).map((col: number) => {
-                  const miniGameStatus = mainGameState[row][col];
+                  const miniStatus = mainGameState[row][col];
                   const isActive =
-                    mainGameStatus === GameStatus.InProgress &&
-                    miniGameStatus === GameStatus.InProgress &&
+                    mainStatus === Status.InProgress &&
+                    miniStatus === Status.InProgress &&
                     (_.isNil(focusedLoc) ||
                       (row === focusedLoc?.row && col === focusedLoc?.col));
 
@@ -133,13 +128,11 @@ const Main: React.FC = () => {
                         miniGameLoc={{ row, col }}
                         isActive={isActive}
                         wiggle={
-                          mainGameStatus === GameStatus.InProgress &&
-                          wiggle &&
-                          isActive
+                          mainStatus === Status.InProgress && wiggle && isActive
                         }
                         setWiggle={setWiggle}
-                        mainGameStatus={mainGameStatus}
-                        miniGameStatus={miniGameStatus}
+                        mainStatus={mainStatus}
+                        miniStatus={miniStatus}
                         curPlayer={curPlayer}
                         handleNext={handleNext}
                       />

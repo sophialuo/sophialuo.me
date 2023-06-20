@@ -1,4 +1,4 @@
-import { GameStatus } from "./types";
+import { Status } from "./types";
 
 export const N = 3;
 
@@ -18,4 +18,4 @@ export const MSG_CLICK_FOCUSED = [
 export const MSG_CLICK_ANYWHERE = [
   "Please click on any empty tile in any mini game",
 ];
-export const MSG_GAME_OVER = (status: GameStatus) => [`Game Over: ${status}`];
+export const MSG_GAME_OVER = (status: Status) => [`Game Over: ${status}`];
