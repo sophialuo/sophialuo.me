@@ -18,15 +18,12 @@ const tinkeringItems = [
 ];
 
 const RowItemPreview: React.FC<{
-  rowTitle: string;
-  index: number;
   itemProps?: { path: string; name: string };
-}> = ({ rowTitle, index, itemProps }) => {
+}> = ({ itemProps }) => {
   const router = useRouter();
 
   return (
     <div
-      key={`${rowTitle}${index}`}
       className="coming-soon-block"
       onClick={() => {
         if (itemProps?.path) {
@@ -49,8 +46,7 @@ const Home: React.FC = () => {
           rowItems={_.range(NUM_ITEMS).map((index: number) => {
             return (
               <RowItemPreview
-                rowTitle={"TINKERING"}
-                index={index}
+                key={`TINKERING${index}`}
                 itemProps={tinkeringItems[index]}
               />
             );
@@ -59,13 +55,13 @@ const Home: React.FC = () => {
         <BodyRow
           rowTitle="EXPRESSING"
           rowItems={_.range(NUM_ITEMS).map((index: number) => {
-            return <RowItemPreview rowTitle={"EXPRESSING"} index={index} />;
+            return <RowItemPreview key={`EXPRESSING${index}`} />;
           })}
         />
         <BodyRow
           rowTitle="THINKING"
           rowItems={_.range(NUM_ITEMS).map((index: number) => {
-            return <RowItemPreview rowTitle={"THINKING"} index={index} />;
+            return <RowItemPreview key={`THINKING${index}`} />;
           })}
         />
       </div>
