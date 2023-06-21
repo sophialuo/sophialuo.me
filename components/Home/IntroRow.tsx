@@ -7,7 +7,7 @@ const IntroRow: React.FC = () => {
   return (
     <div className="horizontal">
       <div className="me-pic-cropper">
-        <Image src="/me.jpg" alt="me" width="380" height="500" />
+        <Image src="/me.jpg" alt="me" width="380" height="380" />
       </div>
       <div className="vertical">
         <div className="name">Sophia Luo</div>

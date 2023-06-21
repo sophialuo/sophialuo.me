@@ -40,7 +40,7 @@ const Main: React.FC = () => {
       let newMainStatus = mainStatus;
       if (miniStatus !== Status.InProgress) {
         // update maingamestate
-        newMainGameState = _.cloneDeep(mainGameState);
+        newMainGameState = mainGameState;
         newMainGameState[row][col] = miniStatus;
         setMainGameState(newMainGameState);
 

@@ -18,7 +18,7 @@ flex-direction:column;
     height: 100%;
     transform: translateY(-10%);
     position:relative;
-    clip-path: circle(40%);
+    clip-path: circle(45%);
 }
 
 .linkedin {
