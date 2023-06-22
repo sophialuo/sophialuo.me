@@ -1,0 +1,184 @@
+.preview-background {
+    width: 100%; 
+    height: 100%; 
+    padding: 0; 
+    border-radius: 10%;
+    background: linear-gradient(
+                #f2cdd788,
+                #f9bccc8b,
+                #d790b783,
+                #b3638f75,
+                #f9bccc7a);
+}
+
+
+@keyframes lineRight {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+        opacity: 0;
+    }
+}
+
+.lineh1 {
+    position: relative; 
+    top: -50px; 
+    transform: translateY(950%);
+    height: 10px;
+    background: #932f66;
+}
+
+.lineh1-hover {
+    animation: lineRight 2s 0.5s infinite linear;
+}
+
+.lineh2 {
+    position: relative;
+    top: -55px;
+    transform: translateY(1100%);
+    height: 10px;
+    background: #b54081;
+}
+
+.lineh2-hover {
+    animation: lineRight 2s 0.7s infinite linear;
+}
+
+@keyframes lineUp {
+    0% {
+        height: 1%;  
+    }
+
+    100% {
+        height: 100%;
+        opacity: 0;
+    }
+}
+
+.linev1 {
+    position:relative; 
+    top: -81px;
+    float: right; 
+    margin-right: 60px; 
+    width: 10px;
+    height: 100.5%;
+    background: #b54081;
+}
+
+.linev1-hover {
+    animation: lineUp 2s 0.5s infinite linear;
+}
+
+.linev2 {
+    position: relative;
+    top: -81px;
+    float: right;
+    margin-right: 10px;
+    width: 10px;
+    height: 100.5%;
+    background: #932f66;
+}
+
+.linev2-hover {
+    animation: lineUp 2s 0.3s infinite linear;
+}
+
+
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(4);
+        opacity: 0
+    }
+}
+
+@keyframes disappear {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+
+.x-icon {
+    margin-top: 40px;
+    float: right;
+    margin-right: 25px;
+    color: gray;
+    transform: scale(3);
+    z-index: 10;
+}
+
+.x-icon-hover {
+    animation: grow 2s 0.5s infinite; 
+}
+
+.o-icon {
+    z-index: 10;    
+    position:relative;
+    color: gray;
+    font-size: 50px;
+    top: 80px;
+    left: 40px;
+}
+
+.o-icon-hover {
+    animation: disappear 2s 0.7s infinite;
+}
+
+@keyframes ultimateDown {
+    0% {
+        top: -30px;
+        
+    }
+
+    100% {
+        top: -65px;
+        opacity: 0.5;
+    }
+}
+
+.ultimate-name {
+    position: relative; 
+    color: black; 
+    top: -55px;
+    left: 15px;
+    font-size: 22px;
+}
+
+.ultimate-name-hover {
+    animation: ultimateDown 2s 0.5s infinite;
+
+}
+
+@keyframes ticTacToeDown {
+    0% {
+        top: -30px
+    }
+
+    100% {
+        top: -65px;
+        opacity: 0.5;
+    }
+}
+
+.tic-tac-toe-name {
+    position: relative;
+    color: black;
+    top: -55px;
+    left: 25px;
+    font-size: 22px;
+}
+
+.tic-tac-toe-name-hover {
+    animation: ticTacToeDown 2s 0.5s infinite;
+}

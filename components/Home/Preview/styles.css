@@ -3,8 +3,7 @@
     min-width: 250px;
     border-radius: 10%;
     cursor: pointer;
-    border-style: solid;
-    border-color: 'gray';
+   box-shadow: 1px 1px 5px black;;
 }
 
 .coming-soon-block {
