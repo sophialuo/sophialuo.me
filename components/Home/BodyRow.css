@@ -8,4 +8,5 @@
     display: flex;
     gap:20px;
     overflow-x: scroll;
+    padding: 5px;
 }
