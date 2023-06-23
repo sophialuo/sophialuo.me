@@ -4,13 +4,17 @@ import _ from "lodash";
 import React from "react";
 import IntroRow from "./IntroRow";
 import BodyRow from "./BodyRow";
-import { DefaultPreview, UltimateTicTacToePreview } from "./Preview";
+import {
+  DefaultPreview,
+  UltimateTicTacToePreview,
+  BouncyBubbles,
+} from "./Preview";
 
 import "./styles.css";
 
 const NUM_ITEMS = 10;
 
-const tinkeringItems = [<UltimateTicTacToePreview />];
+const tinkeringItems = [<UltimateTicTacToePreview />, <BouncyBubbles />];
 
 const Home: React.FC = () => {
   return (
