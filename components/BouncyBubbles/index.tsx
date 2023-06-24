@@ -2,7 +2,7 @@
 
 import _ from "lodash";
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Switch } from "@mui/material";
+import { Alert, Button, Snackbar, Switch } from "@mui/material";
 
 import { useMouseDrag } from "../../hooks";
 import Bubble from "./Bubble";
@@ -13,9 +13,16 @@ const BouncyBubbles: React.FC = () => {
     startPos,
     endPos,
     handleReset: handleDragReset,
-  } = useMouseDrag({ minXDiff: 50, minYDiff: 50 });
+    message,
+  } = useMouseDrag({
+    minXDiff: 50,
+    minYDiff: 50,
+    maxXDiff: 400,
+    maxYDiff: 400,
+  });
   const [bubbles, setBubbles] = useState<React.JSX.Element[]>([]);
   const [ovalAllowed, setOvalAllowed] = useState<boolean>(false);
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 
   useEffect(() => {
     if (!_.isNil(startPos) && !_.isNil(endPos)) {
@@ -36,10 +43,16 @@ const BouncyBubbles: React.FC = () => {
     }
   }, [endPos]);
 
+  useEffect(() => {
+    if (message) {
+      setOpenSnackbar(true);
+    }
+  }, [message]);
+
   const handleReset = useCallback(() => {
     setBubbles([]);
     handleDragReset();
-  }, [setBubbles]);
+  }, [setBubbles, handleDragReset]);
 
   return (
     <div className="background">
@@ -53,6 +66,17 @@ const BouncyBubbles: React.FC = () => {
           <div>{ovalAllowed ? "Ovals allowed" : "Circles only"}</div>
         </div>
       </div>
+      {message && (
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={() => setOpenSnackbar(false)}
+        >
+          <Alert onClose={() => setOpenSnackbar(false)} severity="warning">
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
       {bubbles.map((bubble) => bubble)}
     </div>
   );

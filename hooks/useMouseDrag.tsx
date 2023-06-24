@@ -9,10 +9,16 @@ interface MousePos {
   y: number;
 }
 
-const defaultXDiff = 10;
-const defaultYDiff = 10;
+const defaultMinXDiff = 10;
+const defaultMinYDiff = 10;
 
-const useMouseDrag = (props?: { minXDiff?: number; minYDiff?: number }) => {
+const useMouseDrag = (props?: {
+  minXDiff?: number;
+  minYDiff?: number;
+  maxXDiff?: number;
+  maxYDiff?: number;
+}) => {
+  const [message, setMessage] = useState<string>("");
   const [curPos, setCurPos] = useState<MousePos | undefined>();
   const [startPos, setStartPos] = useState<MousePos | undefined>();
   const [endPos, setEndPos] = useState<MousePos | undefined>();
@@ -20,6 +26,7 @@ const useMouseDrag = (props?: { minXDiff?: number; minYDiff?: number }) => {
   const handleReset = useCallback(() => {
     setStartPos(undefined);
     setEndPos(undefined);
+    setMessage("");
   }, [setStartPos, setEndPos]);
 
   const handleMouseMove = useCallback(
@@ -38,16 +45,34 @@ const useMouseDrag = (props?: { minXDiff?: number; minYDiff?: number }) => {
 
   const handleMouseUp = useCallback(
     (_event: { clientX: any; clientY: any }) => {
-      if (
-        _.isNil(startPos) ||
-        _.isNil(curPos) ||
-        Math.abs(startPos.x - curPos.x) < (props?.minXDiff ?? defaultXDiff) ||
-        Math.abs(startPos.y - curPos.y) < (props?.minYDiff ?? defaultYDiff)
-      ) {
+      const xDiff = Math.abs((startPos?.x ?? 0) - (curPos?.x ?? 0));
+      const yDiff = Math.abs((startPos?.y ?? 0) - (curPos?.y ?? 0));
+      if (_.isNil(startPos) || _.isNil(curPos)) {
+        setStartPos(undefined);
         setEndPos(undefined);
+        setMessage("");
+        return;
+      }
+      if (
+        xDiff < (props?.minXDiff ?? defaultMinXDiff) ||
+        yDiff < (props?.minYDiff ?? defaultMinYDiff)
+      ) {
+        setStartPos(undefined);
+        setEndPos(undefined);
+        setMessage("Too small!");
+        return;
+      }
+      if (
+        (props?.maxXDiff && xDiff > props.maxXDiff) ||
+        (props?.maxYDiff && yDiff > props.maxYDiff)
+      ) {
+        setStartPos(undefined);
+        setEndPos(undefined);
+        setMessage("Too big!");
         return;
       }
       setEndPos({ x: curPos.x, y: curPos.y });
+      setMessage("");
     },
     [startPos, curPos]
   );
@@ -76,6 +101,7 @@ const useMouseDrag = (props?: { minXDiff?: number; minYDiff?: number }) => {
   return {
     startPos,
     endPos,
+    message,
     handleReset,
   };
 };
