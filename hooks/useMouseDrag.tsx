@@ -77,14 +77,14 @@ const useMouseDrag = (props?: {
       ) {
         newStartPos = undefined;
         if (xDiff > 0 && yDiff > 0) {
-          newMessage = "Too small!";
+          newMessage = "TOO SMALL!";
         } // otherwise, a button was probably clicked and the message would be irrelevant
       } else if (
         (props?.maxXDiff && xDiff > props.maxXDiff) ||
         (props?.maxYDiff && yDiff > props.maxYDiff)
       ) {
         newStartPos = undefined;
-        newMessage = "Too big!";
+        newMessage = "TOO BIG!";
       } else {
         newMessage = "";
       }

@@ -55,11 +55,22 @@
                 #d7b3e3,
                 #efb3d5,
                 #f9bccc);
-    height: 90vh; 
+    height: 85vh; 
     width: 100vw; 
     overflow: auto; 
 }
 
+.alert {
+    background-image: linear-gradient(to bottom right,
+                #91defe,
+                #99c0f9,
+                #bdb6ec,
+                #d7b3e3,
+                #efb3d5,
+                #f9bccc);
+    color: darkblue !important;
+
+}
 
 .bubble {
     border-radius: 50%;

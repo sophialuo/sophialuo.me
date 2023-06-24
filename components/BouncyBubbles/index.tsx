@@ -90,7 +90,7 @@ const BouncyBubbles: React.FC = () => {
 
   return (
     <div>
-      <div className="banner" style={{ height: 70 }}>
+      <div className="banner" style={{ height: 60 }}>
         <Button
           variant="contained"
           className="reset-button"
@@ -107,6 +107,24 @@ const BouncyBubbles: React.FC = () => {
         </div>
       </div>
       <div className="background">
+        {message && (
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={6000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            style={{ height: 40, justifyContent: "center" }}
+          >
+            <Alert
+              className="alert"
+              onClose={() => setOpenSnackbar(false)}
+              severity="warning"
+              sx={{ "& .MuiAlert-icon": { color: "darkblue" } }}
+            >
+              {message}
+            </Alert>
+          </Snackbar>
+        )}
         {startPos && curPos && isDragging && (
           <div
             style={{
@@ -120,17 +138,6 @@ const BouncyBubbles: React.FC = () => {
               height: getAdjustedDim(ovalAllowed, startPos, curPos).height,
             }}
           ></div>
-        )}
-        {message && (
-          <Snackbar
-            open={openSnackbar}
-            autoHideDuration={6000}
-            onClose={() => setOpenSnackbar(false)}
-          >
-            <Alert onClose={() => setOpenSnackbar(false)} severity="warning">
-              {message}
-            </Alert>
-          </Snackbar>
         )}
         {bubbles.map((bubble) => bubble)}
       </div>
