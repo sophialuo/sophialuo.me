@@ -1,13 +1,8 @@
 "use client";
 
 import _ from "lodash";
-import { number } from "prop-types";
 import React, { useState, useEffect, useCallback } from "react";
-
-interface MousePos {
-  x: number;
-  y: number;
-}
+import { MousePos } from "./types";
 
 const defaultMinXDiff = 10;
 const defaultMinYDiff = 10;
@@ -17,6 +12,7 @@ const useMouseDrag = (props?: {
   minYDiff?: number;
   maxXDiff?: number;
   maxYDiff?: number;
+  onMouseUp?: (startPos: MousePos, endPos: MousePos) => void;
 }) => {
   const [message, setMessage] = useState<string>("");
   const [curPos, setCurPos] = useState<MousePos | undefined>();
@@ -47,32 +43,38 @@ const useMouseDrag = (props?: {
     (_event: { clientX: any; clientY: any }) => {
       const xDiff = Math.abs((startPos?.x ?? 0) - (curPos?.x ?? 0));
       const yDiff = Math.abs((startPos?.y ?? 0) - (curPos?.y ?? 0));
+      let newStartPos = startPos;
+      let newEndPos = endPos;
+      let newMessage = message;
       if (_.isNil(startPos) || _.isNil(curPos)) {
-        setStartPos(undefined);
-        setEndPos(undefined);
-        setMessage("");
-        return;
-      }
-      if (
+        newStartPos = undefined;
+        newEndPos = undefined;
+        newMessage = "";
+      } else if (
         xDiff < (props?.minXDiff ?? defaultMinXDiff) ||
         yDiff < (props?.minYDiff ?? defaultMinYDiff)
       ) {
-        setStartPos(undefined);
-        setEndPos(undefined);
-        setMessage("Too small!");
-        return;
-      }
-      if (
+        newStartPos = undefined;
+        newEndPos = undefined;
+        newMessage = "Too small!";
+      } else if (
         (props?.maxXDiff && xDiff > props.maxXDiff) ||
         (props?.maxYDiff && yDiff > props.maxYDiff)
       ) {
-        setStartPos(undefined);
-        setEndPos(undefined);
-        setMessage("Too big!");
-        return;
+        newStartPos = undefined;
+        newEndPos = undefined;
+        newMessage = "Too big!";
+      } else {
+        newEndPos = { x: curPos.x, y: curPos.y };
+        newMessage = "";
       }
-      setEndPos({ x: curPos.x, y: curPos.y });
-      setMessage("");
+
+      setStartPos(newStartPos);
+      setEndPos(newEndPos);
+      setMessage(newMessage);
+      if (newStartPos && newEndPos) {
+        props?.onMouseUp && props.onMouseUp(newStartPos, newEndPos);
+      }
     },
     [startPos, curPos]
   );

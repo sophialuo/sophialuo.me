@@ -5,43 +5,42 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Alert, Button, Snackbar, Switch } from "@mui/material";
 
 import { useMouseDrag } from "../../hooks";
+import { MousePos } from "../../hooks/types";
+
 import Bubble from "./Bubble";
 import "./styles.css";
 
 const BouncyBubbles: React.FC = () => {
-  const {
-    startPos,
-    endPos,
-    handleReset: handleDragReset,
-    message,
-  } = useMouseDrag({
-    minXDiff: 50,
-    minYDiff: 50,
-    maxXDiff: 400,
-    maxYDiff: 400,
-  });
   const [bubbles, setBubbles] = useState<React.JSX.Element[]>([]);
   const [ovalAllowed, setOvalAllowed] = useState<boolean>(false);
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!_.isNil(startPos) && !_.isNil(endPos)) {
+  const addBubble = useCallback(
+    (bubbleStartPos: MousePos, bubbleEndPos: MousePos) => {
       const newBubbles = bubbles;
-      const widthDiff = Math.abs(startPos.x - endPos.x);
-      const heightDiff = Math.abs(startPos.y - endPos.y);
+      const widthDiff = Math.abs(bubbleStartPos.x - bubbleEndPos.x);
+      const heightDiff = Math.abs(bubbleStartPos.y - bubbleEndPos.y);
 
       newBubbles.push(
         <Bubble
           key={`bubble-${bubbles.length}`}
-          top={Math.min(startPos.y, endPos.y)}
-          left={Math.min(startPos.x, endPos.x)}
+          top={Math.min(bubbleStartPos.y, bubbleEndPos.y)}
+          left={Math.min(bubbleStartPos.x, bubbleEndPos.x)}
           width={ovalAllowed ? widthDiff : Math.max(widthDiff, heightDiff)}
           height={ovalAllowed ? heightDiff : Math.max(widthDiff, heightDiff)}
         />
       );
       setBubbles(newBubbles);
-    }
-  }, [endPos]);
+    },
+    [bubbles, ovalAllowed, setBubbles]
+  );
+  const { handleReset: handleDragReset, message } = useMouseDrag({
+    minXDiff: 50,
+    minYDiff: 50,
+    maxXDiff: 400,
+    maxYDiff: 400,
+    onMouseUp: addBubble,
+  });
 
   useEffect(() => {
     if (message) {
