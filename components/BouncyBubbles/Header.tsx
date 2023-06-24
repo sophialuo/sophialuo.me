@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { Button, Switch } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 import "./styles.css";
 
@@ -15,13 +16,18 @@ const Header: React.FC<HeaderProps> = ({
   ovalAllowed,
   setOvalAllowed,
 }) => {
+  const router = useRouter();
+
   return (
     <div className="banner" style={{ height: 60 }}>
       <Button
         variant="contained"
-        className="reset-button"
-        onClick={handleReset}
+        className="button"
+        onClick={() => router.push("/")}
       >
+        Back
+      </Button>
+      <Button variant="contained" className="button" onClick={handleReset}>
         Reset
       </Button>
       <div className="switch">
