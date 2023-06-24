@@ -11,8 +11,33 @@ interface BubbleProps {
   height: number;
 }
 
+const BUFFER = 4;
+
+const getAnimationVars = ({ top, height }: { top: number; height: number }) => {
+  if (top - BUFFER < height) {
+    return {
+      "--bounceHeight": `-${top - BUFFER}px`,
+    };
+  } else {
+    return {
+      "--bounceHeight": `-${height}px`,
+    };
+  }
+};
 const Bubble: React.FC<BubbleProps> = ({ top, left, width, height }) => {
-  return <div className="bubble" style={{ top, left, width, height }}></div>;
+  return (
+    <div
+      className="bubble"
+      style={{
+        position: "absolute",
+        top,
+        left,
+        width,
+        height,
+        ...getAnimationVars({ top, height }),
+      }}
+    ></div>
+  );
 };
 
 export default Bubble;

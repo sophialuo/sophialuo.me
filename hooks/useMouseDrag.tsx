@@ -7,23 +7,35 @@ import { MousePos } from "./types";
 const defaultMinXDiff = 10;
 const defaultMinYDiff = 10;
 
+const inDraggableBounds = (validBounds: DOMRect, pos: MousePos) => {
+  const { top, left, right, bottom } = validBounds;
+  return pos.x <= right && pos.x >= left && pos.y <= bottom && pos.y >= top;
+};
+
 const useMouseDrag = (props?: {
   minXDiff?: number;
   minYDiff?: number;
   maxXDiff?: number;
   maxYDiff?: number;
-  onMouseUp?: (startPos: MousePos, endPos: MousePos) => void;
+  validBounds?: DOMRect;
+  onMouseUp?: (
+    startPos: MousePos | undefined,
+    endPos: MousePos | undefined
+  ) => void;
 }) => {
   const [message, setMessage] = useState<string>("");
   const [curPos, setCurPos] = useState<MousePos | undefined>();
   const [startPos, setStartPos] = useState<MousePos | undefined>();
-  const [endPos, setEndPos] = useState<MousePos | undefined>();
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
+  const isOutOfBounds = (pos: MousePos) =>
+    props?.validBounds && !inDraggableBounds(props.validBounds, pos);
 
   const handleReset = useCallback(() => {
     setStartPos(undefined);
-    setEndPos(undefined);
     setMessage("");
-  }, [setStartPos, setEndPos]);
+    setIsDragging(false);
+  }, [setStartPos, setMessage]);
 
   const handleMouseMove = useCallback(
     (event: { clientX: any; clientY: any }) => {
@@ -34,49 +46,56 @@ const useMouseDrag = (props?: {
 
   const handleMouseDown = useCallback(
     (event: { clientX: any; clientY: any }) => {
+      if (isOutOfBounds({ x: event.clientX, y: event.clientY })) {
+        handleReset();
+        return;
+      }
+      setIsDragging(true);
       setStartPos({ x: event.clientX, y: event.clientY });
     },
-    [setStartPos]
+    [setStartPos, setIsDragging, handleReset, props?.validBounds]
   );
 
   const handleMouseUp = useCallback(
     (_event: { clientX: any; clientY: any }) => {
+      if (curPos && isOutOfBounds(curPos)) {
+        handleReset();
+        return;
+      }
+
       const xDiff = Math.abs((startPos?.x ?? 0) - (curPos?.x ?? 0));
       const yDiff = Math.abs((startPos?.y ?? 0) - (curPos?.y ?? 0));
+
       let newStartPos = startPos;
-      let newEndPos = endPos;
       let newMessage = message;
       if (_.isNil(startPos) || _.isNil(curPos)) {
-        newStartPos = undefined;
-        newEndPos = undefined;
-        newMessage = "";
+        handleReset();
+        return;
       } else if (
         xDiff < (props?.minXDiff ?? defaultMinXDiff) ||
         yDiff < (props?.minYDiff ?? defaultMinYDiff)
       ) {
         newStartPos = undefined;
-        newEndPos = undefined;
-        newMessage = "Too small!";
+        if (xDiff > 0 && yDiff > 0) {
+          newMessage = "Too small!";
+        } // otherwise, a button was probably clicked and the message would be irrelevant
       } else if (
         (props?.maxXDiff && xDiff > props.maxXDiff) ||
         (props?.maxYDiff && yDiff > props.maxYDiff)
       ) {
         newStartPos = undefined;
-        newEndPos = undefined;
         newMessage = "Too big!";
       } else {
-        newEndPos = { x: curPos.x, y: curPos.y };
         newMessage = "";
       }
-
       setStartPos(newStartPos);
-      setEndPos(newEndPos);
       setMessage(newMessage);
-      if (newStartPos && newEndPos) {
-        props?.onMouseUp && props.onMouseUp(newStartPos, newEndPos);
-      }
+
+      props?.onMouseUp && props.onMouseUp(newStartPos, curPos);
+
+      setIsDragging(false);
     },
-    [startPos, curPos]
+    [startPos, curPos, handleReset, setIsDragging, props?.validBounds]
   );
 
   useEffect(() => {
@@ -102,7 +121,8 @@ const useMouseDrag = (props?: {
 
   return {
     startPos,
-    endPos,
+    curPos,
+    isDragging,
     message,
     handleReset,
   };
