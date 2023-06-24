@@ -77,7 +77,7 @@ const BouncyBubbles: React.FC = () => {
         ovalAllowed={ovalAllowed}
         setOvalAllowed={setOvalAllowed}
       />
-      <div className="background">
+      <div className="primary background">
         <Warning
           message={message}
           openSnackbar={openSnackbar}

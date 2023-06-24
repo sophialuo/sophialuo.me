@@ -27,7 +27,7 @@ const getAnimationVars = ({ top, height }: { top: number; height: number }) => {
 const Bubble: React.FC<BubbleProps> = ({ top, left, width, height }) => {
   return (
     <div
-      className="bubble"
+      className="secondary bubble"
       style={{
         position: "absolute",
         top,

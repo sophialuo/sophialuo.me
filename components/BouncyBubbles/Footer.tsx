@@ -6,7 +6,7 @@ import "./styles.css";
 interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
-  return <div className="banner" style={{ height: 20 }}></div>;
+  return <div className="secondary banner" style={{ height: 20 }}></div>;
 };
 
 export default Footer;

@@ -19,18 +19,22 @@ const Header: React.FC<HeaderProps> = ({
   const router = useRouter();
 
   return (
-    <div className="banner" style={{ height: 60 }}>
+    <div className="secondary banner" style={{ height: 60 }}>
       <Button
         variant="contained"
-        className="button"
+        className="primary button"
         onClick={() => router.push("/")}
       >
         Back
       </Button>
-      <Button variant="contained" className="button" onClick={handleReset}>
+      <Button
+        variant="contained"
+        className="primary button"
+        onClick={handleReset}
+      >
         Reset
       </Button>
-      <div className="switch">
+      <div className="primary switch">
         <Switch
           checked={ovalAllowed}
           onChange={() => setOvalAllowed(!ovalAllowed)}
