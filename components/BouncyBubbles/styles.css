@@ -1,0 +1,118 @@
+
+.background {
+    background-image: linear-gradient(to bottom right,
+                #91defe,
+                #99c0f9,
+                #bdb6ec,
+                #d7b3e3,
+                #efb3d5,
+                #f9bccc);
+    height: 100%; 
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+.bubble {
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle at 75% 30%,
+            white 5px,
+            aqua 8%,
+            darkblue 60%,
+            aqua 100%);
+    box-shadow: inset 0 0 20px #fff, inset 10px 0 46px #eaf5fc,
+        inset 88px 0px 60px #c2d8fe, inset -20px -60px 100px #fde9ea,
+        inset 0 50px 140px #fde9ea, 0 0 90px #fff;
+    position: absolute;
+   
+}
+
+
+
+.bubble-bounce {
+    -webkit-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+    -moz-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+    -o-animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+    animation: moveX 2s linear 0s infinite alternate, moveY 3.4s linear 0s infinite alternate;
+}
+
+@-webkit-keyframes moveX {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100vw - ;
+    }
+}
+
+@-moz-keyframes moveX {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100vw;
+    }
+}
+
+@-o-keyframes moveX {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100vw;
+    }
+}
+
+@keyframes moveX {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100vw;
+    }
+}
+
+@-webkit-keyframes moveY {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100vh;
+    }
+}
+
+@-moz-keyframes moveY {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100vh;
+    }
+}
+
+@-o-keyframes moveY {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100vh;
+    }
+}
+
+@keyframes moveY {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100vh;
+    }
+}
