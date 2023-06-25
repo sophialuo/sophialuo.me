@@ -1,0 +1,48 @@
+.wrapper {
+    flex-direction: column;
+    display: flex;
+    width: 75%; 
+    justify-content: center;
+    gap: 12px;
+}
+
+.header {
+    flex-direction: column;
+    display: flex;
+    gap: 8px;
+}
+
+.gallery-container {
+    flex-direction: row; 
+    display: flex; 
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+.img-container {
+    height: 300px; 
+    box-shadow: 1px 1px 5px black;
+    margin-bottom: 8px;
+}
+
+.gallery-image {
+    height: 100%;
+    width: 100% 
+}
+
+.flickr {
+    border-style: solid;
+    border-color: black;
+    border-width: 0.5px;
+    padding: 0.5px;
+    border-radius: 3px;
+}
+
+.see-more {
+    flex-direction: horizontal;
+    display: flex; 
+    gap: 12px;
+    align-items: center;
+}

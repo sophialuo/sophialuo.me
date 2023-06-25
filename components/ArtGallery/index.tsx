@@ -1,2 +1,2 @@
 export { default as ArtGallery } from "./Main";
-export { IMAGE_DATA } from "./imageData";
+export { GALLERY_IMAGE_DATA } from "./galleryImageData";

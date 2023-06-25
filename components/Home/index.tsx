@@ -10,7 +10,7 @@ import {
   BouncyBubbles,
   Art,
 } from "./Preview";
-import { IMAGE_DATA } from "../ArtGallery";
+import { GALLERY_IMAGE_DATA } from "../ArtGallery";
 
 import "./styles.css";
 
@@ -21,7 +21,7 @@ const tinkeringItems = [
   <BouncyBubbles key="bouncy-bubbles-preview" />,
 ];
 
-const expressingItems = IMAGE_DATA.map((item) => (
+const expressingItems = GALLERY_IMAGE_DATA.map((item) => (
   <Art
     key={item.url}
     imgUrl={item.url}

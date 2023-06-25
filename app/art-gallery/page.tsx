@@ -1,5 +1,5 @@
 import React from "react";
-import ArtGallery from "../../components/ArtGallery";
+import { ArtGallery } from "../../components/ArtGallery";
 import Layout from "../../components/Layout";
 
 const Page: React.FC = () => {
