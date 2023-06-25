@@ -33,7 +33,7 @@ const Warning: React.FC<WarningProps> = ({
       style={{ height: 40, justifyContent: "center" }}
     >
       <Alert
-        className="alert"
+        className="primary alert"
         onClose={() => setOpenSnackbar(false)}
         severity="warning"
         sx={{ "& .MuiAlert-icon": { color: "darkblue" } }}

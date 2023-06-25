@@ -27,6 +27,10 @@
     padding: 8px; 
 }
 
+.instructions {
+    color: #bdb6ec
+}
+
 .button {
     height: 40px;
 }

@@ -16,6 +16,7 @@ const BUBBLE_PROPS: BubbleProps[] = [
     width: 50,
     height: 50,
     bubbleDelay: 0.15,
+    animationTime: 6,
   },
   {
     position: "relative",
@@ -30,7 +31,8 @@ const BUBBLE_PROPS: BubbleProps[] = [
     left: 80,
     width: 30,
     height: 30,
-    bubbleDelay: 0.25,
+    bubbleDelay: 0.3,
+    animationTime: 4,
   },
   {
     position: "relative",
@@ -39,6 +41,7 @@ const BUBBLE_PROPS: BubbleProps[] = [
     width: 10,
     height: 10,
     bubbleDelay: 0.5,
+    animationTime: 1,
   },
   {
     position: "relative",
@@ -54,6 +57,8 @@ const BUBBLE_PROPS: BubbleProps[] = [
     left: 150,
     width: 15,
     height: 15,
+    bubbleDelay: 0.5,
+    animationTime: 2,
   },
   {
     position: "relative",
@@ -62,6 +67,7 @@ const BUBBLE_PROPS: BubbleProps[] = [
     width: 50,
     height: 50,
     bubbleDelay: 0.45,
+    animationTime: 4,
   },
   {
     position: "relative",
@@ -70,6 +76,7 @@ const BUBBLE_PROPS: BubbleProps[] = [
     width: 30,
     height: 30,
     bubbleDelay: 0.7,
+    animationTime: 1.5,
   },
 ];
 
@@ -106,7 +113,7 @@ const BouncyBubbles: React.FC = () => {
             height={prop.height}
             position={prop.position}
             animationKeyframe={!hover ? "" : undefined}
-            animationTime={3}
+            animationTime={prop.animationTime ?? 3}
           />
         ))}
       </Link>

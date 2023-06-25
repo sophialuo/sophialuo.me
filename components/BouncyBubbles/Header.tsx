@@ -44,6 +44,7 @@ const Header: React.FC<HeaderProps> = ({
         />
         <div>{ovalAllowed ? "OVALS ALLOWED" : "CIRCLES ONLY"}</div>
       </div>
+      <div className="instructions">Click and drag to create bubbles!</div>
     </div>
   );
 };
