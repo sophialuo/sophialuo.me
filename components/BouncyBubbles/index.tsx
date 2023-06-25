@@ -1,8 +1,7 @@
 "use client";
 
 import _ from "lodash";
-import React, { useState, useEffect, useCallback } from "react";
-import { Alert, Snackbar, Switch } from "@mui/material";
+import React, { useState, useCallback } from "react";
 
 import { useMouseDrag } from "../../hooks";
 import { MousePos } from "../../hooks/types";
@@ -59,9 +58,12 @@ const BouncyBubbles: React.FC = () => {
     minYDiff: 50,
     maxXDiff: 400,
     maxYDiff: 400,
-    validBounds: document
-      ?.getElementsByClassName("background")?.[0]
-      ?.getBoundingClientRect(),
+    validBounds:
+      typeof window !== "undefined"
+        ? document
+            ?.getElementsByClassName("background")?.[0]
+            ?.getBoundingClientRect()
+        : undefined,
     onMouseUp: addBubble,
   });
 

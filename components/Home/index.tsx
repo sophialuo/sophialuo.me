@@ -14,7 +14,10 @@ import "./styles.css";
 
 const NUM_ITEMS = 10;
 
-const tinkeringItems = [<UltimateTicTacToePreview />, <BouncyBubbles />];
+const tinkeringItems = [
+  <UltimateTicTacToePreview key="ultimate-tic-tac-toe-preview" />,
+  <BouncyBubbles key="bouncy-bubbles-preview" />,
+];
 
 const Home: React.FC = () => {
   return (
