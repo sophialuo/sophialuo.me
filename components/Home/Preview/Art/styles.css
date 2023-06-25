@@ -1,0 +1,27 @@
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.default {
+    width: 100%;
+    height: 100%;
+}
+
+.formatting-style-0 {
+    border-radius: inherit;
+}
+
+.formatting-style-1 {
+    overflow: clip; 
+    height: 100%;
+    width: 60%;
+}
+
+.formatting-style-2 {
+    overflow: clip;
+    height: 100%;
+    width: 75%;
+}
