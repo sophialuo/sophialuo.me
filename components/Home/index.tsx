@@ -37,6 +37,7 @@ const Home: React.FC = () => {
       <div className="row-wrapper">
         <BodyRow
           rowTitle="TINKERING"
+          rowText="I like to build fun things sometimes"
           rowItems={_.range(NUM_ITEMS).map((index: number) => {
             if (tinkeringItems[index]) {
               return tinkeringItems[index];
@@ -46,12 +47,14 @@ const Home: React.FC = () => {
         />
         <BodyRow
           rowTitle="EXPRESSING"
+          rowText="Making art stuff is also pretty fun"
           rowItems={expressingItems.map((element: React.JSX.Element) => {
             return element;
           })}
         />
         <BodyRow
           rowTitle="THINKING"
+          rowText="One day, I write some thoughts down and put them here."
           rowItems={_.range(NUM_ITEMS).map((index: number) => {
             return <DefaultPreview key={`THINKING${index}`} />;
           })}

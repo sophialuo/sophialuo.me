@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import BouncyBubbles from "../../components/BouncyBubbles";
 import Layout from "../../components/Layout";

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { ArtGallery } from "../../components/ArtGallery";
 import Layout from "../../components/Layout";

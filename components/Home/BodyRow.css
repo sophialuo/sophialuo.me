@@ -1,6 +1,17 @@
-.header-title {
-    top: -10;
+.row-header {
+    flex-direction: row;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px; 
+}
+.row-header-title {
     font-size: 40px;
+    width: fit-content; 
+}
+
+.row-header-text {
+    width: fit-content; 
+    padding: 8px; 
 }
 
 .items {

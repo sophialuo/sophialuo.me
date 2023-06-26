@@ -4,13 +4,17 @@ import "./BodyRow.css";
 
 interface BodyRowProps {
   rowTitle: string;
+  rowText: string;
   rowItems: React.JSX.Element[];
 }
 
-const BodyRow: React.FC<BodyRowProps> = ({ rowTitle, rowItems }) => {
+const BodyRow: React.FC<BodyRowProps> = ({ rowTitle, rowItems, rowText }) => {
   return (
     <div>
-      <div className="header-title">{rowTitle}</div>
+      <div className="row-header">
+        <div className="row-header-title">{rowTitle}</div>
+        <div className="row-header-text">{rowText}</div>
+      </div>
       <div className="items">{rowItems.map((item) => item)}</div>
     </div>
   );
