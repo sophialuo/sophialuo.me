@@ -29,7 +29,8 @@
 
 .gallery-image {
     height: 100%;
-    width: 100% 
+    width: 100%;
+    cursor: pointer; 
 }
 
 .flickr {
@@ -45,4 +46,46 @@
     display: flex; 
     gap: 12px;
     align-items: center;
+}
+
+.dialog-img-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+
+.dialog-img {
+    max-width: 95%;
+    max-height: 500px; 
+    box-shadow: 1px 1px 5px black;
+}
+
+.dialog-container {
+    flex-direction: column;
+    display: flex; 
+    justify-content: center;
+    height: 100%;
+    max-width: fit-content;
+    padding: 18px; 
+}
+
+.description {
+    margin-left: 24px; 
+}
+
+ul {
+    margin-top: 0px; 
+    margin-bottom: 0px; 
+    padding-top: 0px; 
+}
+
+h3 {
+    margin-top: 4px; 
+    margin-bottom: 4px;
+}
+
+li:not(:last-child) {
+    margin: 0px;
+    padding: 0px;
 }

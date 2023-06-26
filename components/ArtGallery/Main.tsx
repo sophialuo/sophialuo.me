@@ -17,10 +17,10 @@ const ArtGallery: React.FC = () => {
         {GALLERY_IMAGE_DATA.map((image) => (
           <GalleryImage
             url={image.url}
-            formattingStyle={image.formattingStyle}
             title={image.title}
             award={image.award}
             description={image.description}
+            formattingStyle={image.formattingStyle}
           />
         ))}
       </div>
