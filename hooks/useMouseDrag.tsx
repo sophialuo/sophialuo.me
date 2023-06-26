@@ -1,7 +1,7 @@
 "use client";
 
 import _ from "lodash";
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MousePos } from "./types";
 
 const defaultMinXDiff = 10;

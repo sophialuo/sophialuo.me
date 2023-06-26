@@ -14,7 +14,7 @@ import { GALLERY_IMAGE_DATA } from "../ArtGallery";
 
 import "./styles.css";
 
-const NUM_ITEMS = 4;
+const NUM_ITEMS = 5;
 
 const tinkeringItems = [
   <UltimateTicTacToePreview key="ultimate-tic-tac-toe-preview" />,

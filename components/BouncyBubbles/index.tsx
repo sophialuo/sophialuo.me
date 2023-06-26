@@ -58,12 +58,9 @@ const BouncyBubbles: React.FC = () => {
     minYDiff: 50,
     maxXDiff: 400,
     maxYDiff: 400,
-    validBounds:
-      typeof window !== "undefined"
-        ? document
-            ?.getElementsByClassName("background")?.[0]
-            ?.getBoundingClientRect()
-        : undefined,
+    validBounds: document
+      ?.getElementsByClassName("background")?.[0]
+      ?.getBoundingClientRect(),
     onMouseUp: addBubble,
   });
 

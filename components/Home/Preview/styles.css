@@ -1,6 +1,6 @@
 .preview-container {
     height: 170px;
-    min-width: 240px;
+    width: 240px;
     border-radius: 10%;
     cursor: pointer;
     box-shadow: 1px 1px 5px black;;
