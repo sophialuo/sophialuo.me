@@ -21,7 +21,7 @@ const IntroRow: React.FC = () => {
           />
         </a>
         <p>
-          Hello! I'm a software engineerand product manager hybrid based in San
+          Hello! I'm a software engineer and product manager hybrid based in San
           Francisco, California. At the workplace, I am also involved in
           recruiting and event planning. In another life, I might have been a
           visual artist. Other hobbies I enjoy include learning Japanese,

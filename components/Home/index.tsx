@@ -54,7 +54,7 @@ const Home: React.FC = () => {
         />
         <BodyRow
           rowTitle="THINKING"
-          rowText="One day, I write some thoughts down and put them here."
+          rowText="One day, I will write some thoughts down and put them here."
           rowItems={_.range(NUM_ITEMS).map((index: number) => {
             return <DefaultPreview key={`THINKING${index}`} />;
           })}
