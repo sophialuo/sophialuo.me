@@ -6,14 +6,15 @@ import "./styles.css";
 const Art: React.FC<{
   imgUrl: string;
   formattingStyle: number;
-}> = ({ imgUrl, formattingStyle }) => {
+  title: string;
+}> = ({ imgUrl, formattingStyle, title }) => {
   const router = useRouter();
 
   return (
     <div
       className="preview-container centered"
       onClick={() => {
-        router.push("/art-gallery");
+        router.push(`/art-gallery#${title}`);
       }}
     >
       <img

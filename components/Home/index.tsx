@@ -26,6 +26,7 @@ const expressingItems = GALLERY_IMAGE_DATA.map((item) => (
     key={item.url}
     imgUrl={item.url}
     formattingStyle={item.formattingStyle}
+    title={item.title}
   />
 ));
 

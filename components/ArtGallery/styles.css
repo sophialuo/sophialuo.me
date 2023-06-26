@@ -54,6 +54,17 @@
     margin-bottom: 8px;
 }
 
+.dialog-header {
+    flex-direction: row;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.close-button {
+    cursor: pointer; 
+    padding: 4px; 
+}
 
 .dialog-img {
     max-width: 100%;
@@ -80,6 +91,10 @@ ul {
     padding-top: 0px; 
 }
 
+h2 {
+    margin-top: 0px; 
+}
+
 h3 {
     margin-top: 4px; 
     margin-bottom: 4px;
@@ -88,4 +103,8 @@ h3 {
 li:not(:last-child) {
     margin: 0px;
     padding: 0px;
+}
+
+html {
+    scroll-behavior: smooth;
 }
