@@ -30,7 +30,7 @@ const ArtGallery: React.FC = () => {
               award={image.award}
               description={image.description}
               formattingStyle={image.formattingStyle}
-              selected={anchor === `#${encodeURIComponent(image.title)}`}
+              selected={decodeURIComponent(anchor ?? "") === `#${image.title}`}
             />
           );
         })}

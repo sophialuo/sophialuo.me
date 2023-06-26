@@ -7,7 +7,6 @@
     flex-direction: row;
     display: flex;
     gap:20px;
-    overflow-x: scroll;
-    overflow-y: clip; 
+    flex-wrap: wrap;
     padding: 5px;
 }

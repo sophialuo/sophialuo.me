@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import _ from "lodash";
 import { useRouter } from "next/navigation";
 import "./styles.css";
@@ -12,7 +12,8 @@ const Art: React.FC<{
 
   return (
     <div
-      className="preview-container centered"
+      id={`preview-${imgUrl}`}
+      className="preview-container art"
       onClick={() => {
         router.push(`/art-gallery#${title}`);
       }}
