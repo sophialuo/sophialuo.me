@@ -13,3 +13,7 @@
     display: flex;
     gap: 28px
 }
+
+.bio {
+    font-size: 20px; 
+}

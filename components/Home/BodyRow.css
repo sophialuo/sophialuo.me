@@ -13,6 +13,7 @@
 .row-header-text {
     width: fit-content; 
     padding: 8px; 
+    font-size: 20px; 
 }
 
 .items {

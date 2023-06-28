@@ -7,7 +7,7 @@ const IntroRow: React.FC = () => {
   return (
     <div className="horizontal">
       <div className="me-pic-cropper">
-        <Image src="/me.jpg" alt="me" width="380" height="380" />
+        <Image src="/me.png" alt="me" width="380" height="350" />
       </div>
       <div className="vertical">
         <div className="name">Sophia Luo</div>
@@ -20,7 +20,7 @@ const IntroRow: React.FC = () => {
             height="20"
           />
         </a>
-        <p>
+        <p className="bio">
           Hello! I'm a software engineer and product manager hybrid based in San
           Francisco, California. At the workplace, I am also involved in
           recruiting and event planning. In another life, I might have been a
