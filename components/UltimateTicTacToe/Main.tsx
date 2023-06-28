@@ -91,7 +91,7 @@ const Main: React.FC = () => {
         <Link href="/">Back</Link>
       </div>
       <div className="game-wrapper">
-        <h1>Ultimate Tic Tac Toe</h1>
+        <h1 className="ultimate-h1">Ultimate Tic Tac Toe</h1>
         <h2 className="game-message">{gameMessage[0]}</h2>
         {gameMessage.length > 0 && (
           <div className="game-sub-message-wrapper">

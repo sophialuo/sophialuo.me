@@ -3,6 +3,7 @@
     display: flex;
     align-items: flex-end;
     gap: 8px; 
+    margin-bottom: 8px; 
 }
 .row-header-title {
     font-size: 40px;

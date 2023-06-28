@@ -2,7 +2,6 @@
     width: 100%; 
     height: 100%; 
     padding: 0; 
-    border-radius: 10%;
     background: linear-gradient(
                 #f2cdd788,
                 #f9bccc8b,
@@ -25,7 +24,7 @@
 
 .lineh1 {
     position: relative; 
-    top: -50px; 
+    top: -40px; 
     transform: translateY(950%);
     height: 10px;
     background: #932f66;
@@ -37,7 +36,7 @@
 
 .lineh2 {
     position: relative;
-    top: -55px;
+    top: -20px;
     transform: translateY(1100%);
     height: 10px;
     background: #b54081;
@@ -60,9 +59,9 @@
 
 .linev1 {
     position:relative; 
-    top: -81px;
+    top: -129px;
     float: right; 
-    margin-right: 60px; 
+    margin-right: 80px; 
     width: 10px;
     height: 100.5%;
     background: #b54081;
@@ -74,9 +73,9 @@
 
 .linev2 {
     position: relative;
-    top: -81px;
+    top: -129px;
     float: right;
-    margin-right: 10px;
+    margin-right: 30px;
     width: 10px;
     height: 100.5%;
     background: #932f66;
@@ -112,9 +111,9 @@
 .x-icon {
     margin-top: 40px;
     float: right;
-    margin-right: 25px;
+    margin-right: 35px;
     color: gray;
-    transform: scale(3);
+    transform: scale(4);
     z-index: 10;
 }
 
@@ -126,8 +125,8 @@
     z-index: 10;    
     position:relative;
     color: gray;
-    font-size: 50px;
-    top: 80px;
+    font-size: 90px;
+    top: 110px;
     left: 40px;
 }
 
@@ -137,12 +136,12 @@
 
 @keyframes ultimateDown {
     0% {
-        top: -30px;
+        top: -75px;
         
     }
 
     100% {
-        top: -65px;
+        top: -105px;
         opacity: 0.5;
     }
 }
@@ -150,9 +149,9 @@
 .ultimate-name {
     position: relative; 
     color: black; 
-    top: -55px;
+    top: -75px;
     left: 15px;
-    font-size: 22px;
+    font-size: 28px;
 }
 
 .ultimate-name-hover {
@@ -162,11 +161,10 @@
 
 @keyframes ticTacToeDown {
     0% {
-        top: -30px
+        top: -75px;
     }
-
     100% {
-        top: -65px;
+        top: -105px;
         opacity: 0.5;
     }
 }
@@ -174,9 +172,9 @@
 .tic-tac-toe-name {
     position: relative;
     color: black;
-    top: -55px;
+    top: -75px;
     left: 25px;
-    font-size: 22px;
+    font-size: 28px;
 }
 
 .tic-tac-toe-name-hover {

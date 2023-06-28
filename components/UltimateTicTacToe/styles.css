@@ -1,5 +1,4 @@
 .container {
-    max-width:100vh;
     height:100%;
     gap: 14px;
 }
@@ -21,7 +20,7 @@ h1 {
     padding: 16px
 }
 
-h1:hover {
+.ultimate-h1:hover {
     padding: 16px;
     animation: wiggle 0.7s;
 }

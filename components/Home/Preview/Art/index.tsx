@@ -10,6 +10,19 @@ const Art: React.FC<{
 }> = ({ imgUrl, formattingStyle, title }) => {
   const router = useRouter();
 
+  if (imgUrl === "") {
+    return (
+      <div
+        id={`preview-${imgUrl}`}
+        className="preview-container art view-more"
+        onClick={() => {
+          router.push(`/art-gallery`);
+        }}
+      >
+        View More
+      </div>
+    );
+  }
   return (
     <div
       id={`preview-${imgUrl}`}
