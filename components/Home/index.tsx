@@ -7,28 +7,36 @@ import BodyRow from "./BodyRow";
 import {
   DefaultPreview,
   UltimateTicTacToePreview,
-  BouncyBubbles,
-  Art,
+  BouncyBubblesPreview,
+  ArtPreview,
+  ExternalLinkPreview,
 } from "./Preview";
 import { GALLERY_IMAGE_DATA } from "../ArtGallery";
 
 import "./styles.css";
 
+// what to show in tinkering
 const tinkeringItems = [
   <UltimateTicTacToePreview key="ultimate-tic-tac-toe-preview" />,
-  <BouncyBubbles key="bouncy-bubbles-preview" />,
+  <BouncyBubblesPreview key="bouncy-bubbles-preview" />,
 ];
 
+// what to show in expressing
 const NUM_ART_TO_SHOW = 5;
 const expressingItems = GALLERY_IMAGE_DATA.slice(0, NUM_ART_TO_SHOW + 1).map(
   (item, index) => {
     if (index === NUM_ART_TO_SHOW) {
       return (
-        <Art key={"view-more"} imgUrl={""} formattingStyle={0} title={""} />
+        <ArtPreview
+          key={"view-more"}
+          imgUrl={""}
+          formattingStyle={0}
+          title={""}
+        />
       );
     }
     return (
-      <Art
+      <ArtPreview
         key={item.url}
         imgUrl={item.url}
         formattingStyle={item.formattingStyle}
@@ -38,6 +46,17 @@ const expressingItems = GALLERY_IMAGE_DATA.slice(0, NUM_ART_TO_SHOW + 1).map(
   }
 );
 
+// what to show in thinking
+const thinkingItems = [
+  <ExternalLinkPreview
+    imagePath="/why_i_joined_scale.png"
+    altName="why_i_joined_scale"
+    externalLink="https://scale.com/blog/why-I-joined-scale-sophia"
+    width={340}
+    height={250}
+  />,
+];
+
 const Home: React.FC = () => {
   return (
     <div className="container">
@@ -45,8 +64,8 @@ const Home: React.FC = () => {
       <div className="row-wrapper">
         <BodyRow
           rowTitle="TINKERING"
-          rowText="I like to build fun things sometimes"
-          rowItems={_.range(3).map((index: number) => {
+          rowText="I like to build fun things sometimes."
+          rowItems={_.range(tinkeringItems.length + 1).map((index: number) => {
             if (tinkeringItems[index]) {
               return tinkeringItems[index];
             }
@@ -54,17 +73,20 @@ const Home: React.FC = () => {
           })}
         />
         <BodyRow
-          rowTitle="EXPRESSING"
-          rowText="Making art stuff is also pretty fun"
-          rowItems={expressingItems.map((element: React.JSX.Element) => {
-            return element;
+          rowTitle="THINKING"
+          rowText="One day, I will write some thoughts down and put them here."
+          rowItems={_.range(thinkingItems.length + 1).map((index: number) => {
+            if (thinkingItems[index]) {
+              return thinkingItems[index];
+            }
+            return <DefaultPreview key={`THINKING${index}`} />;
           })}
         />
         <BodyRow
-          rowTitle="THINKING"
-          rowText="One day, I will write some thoughts down and put them here."
-          rowItems={_.range(1).map((index: number) => {
-            return <DefaultPreview key={`THINKING${index}`} />;
+          rowTitle="EXPRESSING"
+          rowText="Making art stuff is also pretty fun."
+          rowItems={expressingItems.map((element: React.JSX.Element) => {
+            return element;
           })}
         />
       </div>
