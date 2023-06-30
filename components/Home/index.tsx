@@ -8,6 +8,7 @@ import {
   DefaultPreview,
   UltimateTicTacToePreview,
   BouncyBubblesPreview,
+  JSONViewerPreview,
   ArtPreview,
   ExternalLinkPreview,
 } from "./Preview";
@@ -19,6 +20,7 @@ import "./styles.css";
 const tinkeringItems = [
   <UltimateTicTacToePreview key="ultimate-tic-tac-toe-preview" />,
   <BouncyBubblesPreview key="bouncy-bubbles-preview" />,
+  <JSONViewerPreview key="json-viewer-preview" />,
 ];
 
 // what to show in expressing
