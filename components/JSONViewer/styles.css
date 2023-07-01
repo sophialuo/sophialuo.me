@@ -1,0 +1,16 @@
+.json-viewer-container {
+    width: 90vw; 
+}
+
+.json-text-input {
+    width: 300px; 
+}
+
+.horizontal {
+    flex-direction: row;
+    display:flex; 
+}
+
+.tabbed {
+    margin-left: 20px;
+}

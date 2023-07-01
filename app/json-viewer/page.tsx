@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import JSONViewer from "../../components/JSONViewer";
 import Layout from "../../components/Layout";
