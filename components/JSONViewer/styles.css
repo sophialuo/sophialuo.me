@@ -1,9 +1,21 @@
+.json-button {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+
 .json-viewer-container {
     width: 90vw; 
 }
 
+.json-viewer-content {
+    gap: 12px; 
+    flex-direction: column;
+    display: flex;
+}
+
 .json-text-input {
-    width: 300px; 
+    width: 60vw;
 }
 
 .horizontal {
@@ -13,4 +25,21 @@
 
 .tabbed {
     margin-left: 20px;
+}
+
+.bolded {
+    font-weight: 700;
+}
+
+.color-1 {
+    color: #3CC39D
+}
+
+.color-2 {
+    color: #9D3CC3;
+}
+
+
+.color-3 {
+    color: #C39D3C;
 }
