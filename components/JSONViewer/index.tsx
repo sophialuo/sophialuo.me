@@ -28,8 +28,12 @@ const JSONViewer: React.FC<JSONViewerProps> = () => {
     <div className="json-viewer-container">
       <Link href="/">Back</Link>
       <h1>JSON Viewer</h1>
+      <div className="aside-text">
+        {"(I thought this was a pretty fun recursive component exercise)"}
+      </div>
       <div className="json-viewer-content">
         <h2>Copy and paste your JSON here</h2>
+
         <div className="sample-json-container">
           <span className="bolded">Sample JSONs: </span>
           <span className="sample-json-buttons">
