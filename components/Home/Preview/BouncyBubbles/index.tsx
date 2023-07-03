@@ -46,7 +46,7 @@ const BUBBLE_PROPS: BubbleProps[] = [
   {
     position: "relative",
     top: -305,
-    left: 250,
+    left: 270,
     width: 60,
     height: 60,
     bubbleDelay: 0.25,

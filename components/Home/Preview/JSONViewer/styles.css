@@ -1,0 +1,91 @@
+.json-viewer-block {
+    width: 100%; 
+    height: 100%; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    display: flex; 
+    gap: 8px; 
+    font-weight: 500;
+    font-size: 34px;
+    background: linear-gradient(#c5e3f291,
+                #a8cee98d,
+                #eed6d391,
+                #e29cb489);
+    -webkit-text-stroke: 1px gray;
+}
+
+
+.word-1 {
+    color: #FBEDE0;
+}
+
+.word-2 {
+    color: #FDD1D2;
+}
+
+.word-3 {
+    color: #D4BBDD;
+}
+
+.word-4 {
+    color: #D0AB99;
+}
+
+.word-hover {
+    animation: color-animation 4s linear infinite;
+}
+
+.word-hover-1 {
+    --color-1: #92DBF0;
+    --color-2: #FFF4BD;
+    --color-3: #FBE7C6;
+}
+
+.word-hover-2 {
+    --color-1: #F3F6FE;
+    --color-2: #F4B9B8;
+    --color-3: #B4F8C8;
+}
+
+.word-hover-3 {
+    --color-1: #C372A8;
+    --color-2: #85D2D0;
+    --color-3: #A0E7E5;
+}
+
+.word-hover-4 {
+    --color-1: #BDF0D6;
+    --color-2: #887BB0;
+    --color-3: #FFAEBC;
+}
+
+@keyframes color-animation {
+    0% {
+        color: var(--color-1)
+    }
+
+    32% {
+        color: var(--color-1)
+    }
+
+    33% {
+        color: var(--color-2)
+    }
+
+    65% {
+        color: var(--color-2)
+    }
+
+    66% {
+        color: var(--color-3)
+    }
+
+    99% {
+        color: var(--color-3)
+    }
+
+    100% {
+        color: var(--color-1)
+    }
+}
