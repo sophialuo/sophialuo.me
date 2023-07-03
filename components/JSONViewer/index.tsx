@@ -5,6 +5,7 @@ import React, { useState, useMemo } from "react";
 import { TextField } from "@mui/material";
 import "./styles.css";
 import Link from "next/link";
+import JSONObj from "./JSONObj";
 
 interface JSONViewerProps {}
 
@@ -16,82 +17,6 @@ const isValidJson = (json: string) => {
     }
   } catch (e) {}
   return false;
-};
-
-const isValidArray = (json: string) => Array.isArray(json);
-
-const withQuotes = (value: string) => `"${value}"`;
-
-const JSONObj: React.FC<{ data: any; isArray?: boolean }> = ({
-  data,
-  isArray,
-}) => {
-  const [expanded, setExpanded] = useState<boolean>(true);
-
-  return (
-    <>
-      {!expanded && (
-        <>
-          <button
-            className="json-button color-1"
-            onClick={() => setExpanded(true)}
-          >
-            {"▶"}
-          </button>
-          <span className="color-1">{`${
-            isArray ? "[ ... ]" : "{ ... }"
-          }`}</span>
-        </>
-      )}
-      {expanded && (
-        <>
-          <span>
-            <button
-              className="json-button color-1"
-              onClick={() => setExpanded(false)}
-            >
-              {"▼"}
-            </button>
-          </span>
-          <span className="color-1">{`${isArray ? "[" : "{"}`}</span>
-          <div className="tabbed">
-            {Object.keys(data).map((key) => {
-              const value = data[key];
-              if (typeof value === "string") {
-                return (
-                  <div>
-                    <span className="bolded">
-                      {`${isArray ? withQuotes(key) : key}: `}
-                    </span>
-                    <span className="color-2"> {withQuotes(value)}</span>
-                  </div>
-                );
-              } else if (typeof value === "object") {
-                return (
-                  <div>
-                    <span className="bolded">{`${
-                      isArray ? withQuotes(key) : key
-                    }: `}</span>
-                    <JSONObj data={value} isArray={isValidArray(value)} />
-                  </div>
-                );
-              } else {
-                return (
-                  <div>
-                    <span className="bolded">
-                      {`${isArray ? withQuotes(key) : key}: `}
-                    </span>
-                    <span className="color-3"> {`${value}`}</span>
-                  </div>
-                );
-              }
-            })}
-          </div>
-          <div className="color-1">{`${isArray ? "]" : "}"}`}</div>
-        </>
-      )}
-    </>
-  );
 };
 
 const JSONViewer: React.FC<JSONViewerProps> = () => {
