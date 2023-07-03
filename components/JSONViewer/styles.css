@@ -8,6 +8,21 @@
     width: 90vw; 
 }
 
+.sample-json-container {
+    flex-direction: row;
+    display: flex; 
+}
+
+.sample-json-buttons {
+    display: flex; 
+    gap: 4px;
+}
+
+.sample-json-button {
+    margin-left: 4px; 
+    cursor: pointer; 
+}
+
 .json-viewer-content {
     gap: 12px; 
     flex-direction: column;
@@ -38,7 +53,6 @@
 .color-2 {
     color: #9D3CC3;
 }
-
 
 .color-3 {
     color: #C39D3C;
