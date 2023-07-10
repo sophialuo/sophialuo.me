@@ -2,7 +2,8 @@
     height: 250px;
     width: 340px;
     cursor: pointer;
-    box-shadow: 1px 1px 5px gray;;
+    box-shadow: 1px 1px 5px gray;
+    overflow: clip;
 }
 
 .coming-soon-block {

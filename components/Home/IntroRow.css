@@ -5,6 +5,21 @@
     margin-bottom: 20px; 
 }
 
+.me-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+    .horizontal {
+        flex-direction: column;
+        display: flex;
+        padding: 20px;
+        max-width: 90vw;
+        flex-wrap: wrap;
+    }
+}
+
 .vertical {
     flex-direction:column;
     display: flex;

@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({
   const router = useRouter();
 
   return (
-    <div className="secondary banner" style={{ height: 60 }}>
+    <div className="secondary banner">
       <Button
         variant="contained"
         className="primary button"

@@ -41,7 +41,7 @@ const GalleryImage: React.FC<GalleryImageComponentProps> = ({
   };
 
   return (
-    <div className="img-container">
+    <div>
       <img className="gallery-image" onClick={handleOpen} src={url} />
       <Dialog open={open} onClose={handleClose} maxWidth="lg">
         <div className="dialog-container">

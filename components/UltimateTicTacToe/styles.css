@@ -16,10 +16,6 @@
     height:100%;
 }
 
-h1 {
-    padding: 16px
-}
-
 .ultimate-h1:hover {
     padding: 16px;
     animation: wiggle 0.7s;

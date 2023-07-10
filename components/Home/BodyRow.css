@@ -4,6 +4,7 @@
     align-items: flex-end;
     gap: 8px; 
     margin-bottom: 8px; 
+    flex-wrap: wrap;
 }
 .row-header-title {
     font-size: 40px;

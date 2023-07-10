@@ -20,17 +20,12 @@
     justify-content: space-between;
 }
 
-
-.img-container {
-    height: 300px; 
-    box-shadow: 1px 1px 5px gray;
-    margin-bottom: 8px;
-}
-
 .gallery-image {
-    height: 100%;
-    width: 100%;
+    object-fit: cover;
+    max-width: 35vw;
+    max-height: 35vh; 
     cursor: pointer; 
+    box-shadow: 1px 1px 5px gray;
 }
 
 .flickr {

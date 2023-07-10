@@ -6,7 +6,9 @@ import "./IntroRow.css";
 const IntroRow: React.FC = () => {
   return (
     <div className="horizontal">
-      <Image src="/me.png" alt="me" width="380" height="350" />
+      <div className="me-image-container">
+        <Image src="/me.png" alt="me" width="380" height="350" />
+      </div>
       <div className="vertical">
         <div className="name">Sophia Luo</div>
         <ReactMarkdown>
